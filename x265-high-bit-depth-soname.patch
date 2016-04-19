@@ -1,0 +1,20 @@
+diff -Naur x265_1.8.old/source/CMakeLists.txt x265_1.8/source/CMakeLists.txt
+--- x265_1.8.old/source/CMakeLists.txt	2016-02-07 21:26:04.398106935 +0100
++++ x265_1.8/source/CMakeLists.txt	2016-02-07 22:15:25.277400395 +0100
+@@ -459,7 +459,15 @@
+     if(MSVC)
+         set_target_properties(x265-shared PROPERTIES OUTPUT_NAME libx265)
+     else()
+-        set_target_properties(x265-shared PROPERTIES OUTPUT_NAME x265)
++        if(HIGH_BIT_DEPTH)
++            if(MAIN12)
++                set_target_properties(x265-shared PROPERTIES OUTPUT_NAME x265_main12)
++            else()
++                set_target_properties(x265-shared PROPERTIES OUTPUT_NAME x265_main10)
++            endif()
++        else()
++            set_target_properties(x265-shared PROPERTIES OUTPUT_NAME x265)
++        endif(HIGH_BIT_DEPTH)
+     endif()
+     if(UNIX)
+         set_target_properties(x265-shared PROPERTIES VERSION ${X265_BUILD})

@@ -1,0 +1,24 @@
+diff -Naur x265_1.9.old/source/CMakeLists.txt x265_1.9/source/CMakeLists.txt
+--- x265_1.9.old/source/CMakeLists.txt	2016-02-12 10:31:43.992774132 +0100
++++ x265_1.9/source/CMakeLists.txt	2016-02-12 10:31:50.631865655 +0100
+@@ -165,7 +165,7 @@
+     add_definitions(-D__STDC_LIMIT_MACROS=1)
+     add_definitions(-std=gnu++98)
+     if(ENABLE_PIC)
+-         add_definitions(-fPIC)
++         add_definitions(-fPIC -DPIC)
+     endif(ENABLE_PIC)
+     if(NATIVE_BUILD)
+         if(INTEL_CXX)
+diff -Naur x265_1.9.old/source/test/checkasm-a.asm x265_1.9/source/test/checkasm-a.asm
+--- x265_1.9.old/source/test/checkasm-a.asm	2016-02-12 10:31:43.999774229 +0100
++++ x265_1.9/source/test/checkasm-a.asm	2016-02-12 10:31:50.632865669 +0100
+@@ -156,7 +156,7 @@
+     mov  r9, rax
+     mov r10, rdx
+     lea  r0, [error_message]
+-    call puts
++    call puts wrt ..plt
+     mov  r1, [rsp+max_args*8]
+     mov  dword [r1], 0
+     mov  rdx, r10

@@ -1,7 +1,8 @@
 Summary:        H.265/HEVC encoder
 Name:           x265
 Version:        1.9
-Release:        1%{?dist}
+Release:        2%{?dist}
+Epoch:          1
 URL:            http://x265.org/
 # source/Lib/TLibCommon - BSD
 # source/Lib/TLibEncoder - BSD
@@ -140,6 +141,9 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} test/TestBench || :
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Wed Aug 17 2016 Simone Caronni <negativo17@gmail.com> - 1:1.9-2
+- Bump Epoch.
+
 * Fri Feb 12 2016 Simone Caronni <negativo17@gmail.com> - 1.9-1
 - Update to version 1.9.
 

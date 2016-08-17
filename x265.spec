@@ -45,7 +45,7 @@ This package contains the shared library.
 
 %package        devel
 Summary:        H.265/HEVC encoder library development files
-Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
+Requires:       %{name}-libs%{?_isa} = %{?epoch}:%{version}-%{release}
 
 %description    devel
 The primary objective of %{name} is to become the best H.265/HEVC encoder

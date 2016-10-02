@@ -1,10 +1,10 @@
-diff -up x265_1.8/source/test/CMakeLists.txt.shared x265_1.8/source/test/CMakeLists.txt
---- x265_1.8/source/test/CMakeLists.txt.shared	2015-09-22 10:10:07.000000000 +0200
-+++ x265_1.8/source/test/CMakeLists.txt	2015-10-24 12:15:04.846236808 +0200
-@@ -23,7 +23,7 @@ add_executable(TestBench ${YASM_SRC}
-     mbdstharness.cpp mbdstharness.h
+diff -Naur x265_2.1.old/source/test/CMakeLists.txt x265_2.1/source/test/CMakeLists.txt
+--- x265_2.1.old/source/test/CMakeLists.txt	2016-10-02 18:03:48.977201833 +0200
++++ x265_2.1/source/test/CMakeLists.txt	2016-10-02 18:05:54.580392467 +0200
+@@ -44,7 +44,7 @@
      ipfilterharness.cpp ipfilterharness.h
      intrapredharness.cpp intrapredharness.h)
+ 
 -target_link_libraries(TestBench x265-static ${PLATFORM_LIBS})
 +target_link_libraries(TestBench x265-shared ${PLATFORM_LIBS})
  if(LINKER_OPTIONS)

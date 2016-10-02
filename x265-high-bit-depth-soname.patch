@@ -1,7 +1,7 @@
-diff -Naur x265_1.8.old/source/CMakeLists.txt x265_1.8/source/CMakeLists.txt
---- x265_1.8.old/source/CMakeLists.txt	2016-02-07 21:26:04.398106935 +0100
-+++ x265_1.8/source/CMakeLists.txt	2016-02-07 22:15:25.277400395 +0100
-@@ -459,7 +459,15 @@
+diff -Naur x265_2.1.old/source/CMakeLists.txt x265_2.1/source/CMakeLists.txt
+--- x265_2.1.old/source/CMakeLists.txt	2016-10-02 18:03:48.861199810 +0200
++++ x265_2.1/source/CMakeLists.txt	2016-10-02 18:03:58.374365728 +0200
+@@ -514,7 +514,15 @@
      if(MSVC)
          set_target_properties(x265-shared PROPERTIES OUTPUT_NAME libx265)
      else()

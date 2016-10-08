@@ -1,7 +1,7 @@
 Summary:        H.265/HEVC encoder
 Name:           x265
 Version:        2.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Epoch:          1
 URL:            http://x265.org/
 # source/Lib/TLibCommon - BSD
@@ -9,7 +9,7 @@ URL:            http://x265.org/
 # everything else - GPLv2+
 License:        GPLv2+ and BSD
 
-Source0:        http://ftp.videolan.org/pub/videolan/%{name}/%{name}_%{version}.tar.gz
+Source0:        https://bitbucket.org/multicoreware/%{name}/downloads/%{name}_%{version}.tar.gz
 Patch0:         %{name}-high-bit-depth-soname.patch
 # link test binaries with shared library
 Patch1:         %{name}-test-shared.patch
@@ -141,6 +141,9 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} test/TestBench || :
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Sat Oct 08 2016 Simone Caronni <negativo17@gmail.com> - 1:2.1-2
+- Rebuild for 2.1 hotfix, same tarball name, different file.
+
 * Sun Oct 02 2016 Simone Caronni <negativo17@gmail.com> - 1:2.1-1
 - Update to version 2.1.
 

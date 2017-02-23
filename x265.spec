@@ -1,6 +1,6 @@
 Summary:        H.265/HEVC encoder
 Name:           x265
-Version:        2.2
+Version:        2.3
 Release:        1%{?dist}
 Epoch:          1
 URL:            http://x265.org/
@@ -18,8 +18,11 @@ Patch2:         %{name}-pic.patch
 Patch4:         %{name}-detect_cpu_armhfp.patch
 
 BuildRequires:  cmake
-BuildRequires:  numactl-devel
 BuildRequires:  yasm
+# The nunactl package is only supporting x86_64 architechtures. Here only ARM processors are specifically excluded until this statement is verified.
+%ifnarch %arm
+BuildRequires:  numactl-devel
+%endif
 
 %description
 The primary objective of %{name} is to become the best H.265/HEVC encoder
@@ -141,6 +144,10 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} test/TestBench || :
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Tue Feb 21 2017 Stefan Bluhm <stefan.bluhm@clacee.eu> - 1:2.3-1
+- Update to 2.3.
+- Fix to ignore NUNA for ARM processors as ARM is not supported by the nunactl package.
+
 * Tue Jan 03 2017 Simone Caronni <negativo17@gmail.com> - 1:2.2-1
 - Update to 2.2.
 

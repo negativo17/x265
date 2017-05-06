@@ -1,7 +1,7 @@
 Summary:    H.265/HEVC encoder
 Name:       x265
-Version:    2.3
-Release:    2%{?dist}
+Version:    2.4
+Release:    1%{?dist}
 Epoch:      1
 URL:        http://x265.org/
 # source/Lib/TLibCommon - BSD
@@ -136,6 +136,9 @@ done
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Sat May 06 2017 Simone Caronni <negativo17@gmail.com> - 1:2.4-1
+- Update to 2.4.
+
 * Tue Apr 11 2017 Simone Caronni <negativo17@gmail.com> - 1:2.3-2
 - Clean up SPEC file, rework build section.
 - Make the main library load the versioned variants of the high depth builds.

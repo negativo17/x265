@@ -1,18 +1,18 @@
-diff -Naur x265_1.9.old/source/CMakeLists.txt x265_1.9/source/CMakeLists.txt
---- x265_1.9.old/source/CMakeLists.txt	2016-02-12 10:31:43.992774132 +0100
-+++ x265_1.9/source/CMakeLists.txt	2016-02-12 10:31:50.631865655 +0100
-@@ -165,7 +165,7 @@
-     add_definitions(-D__STDC_LIMIT_MACROS=1)
-     add_definitions(-std=gnu++98)
+diff -Naur x265_2.5.old/source/CMakeLists.txt x265_2.5/source/CMakeLists.txt
+--- x265_2.5.old/source/CMakeLists.txt	2017-08-22 15:51:27.377334639 +0200
++++ x265_2.5/source/CMakeLists.txt	2017-08-22 15:51:36.116497609 +0200
+@@ -196,7 +196,7 @@
+         add_definitions(-std=gnu++98)
+     endif()
      if(ENABLE_PIC)
 -         add_definitions(-fPIC)
 +         add_definitions(-fPIC -DPIC)
      endif(ENABLE_PIC)
      if(NATIVE_BUILD)
          if(INTEL_CXX)
-diff -Naur x265_1.9.old/source/test/checkasm-a.asm x265_1.9/source/test/checkasm-a.asm
---- x265_1.9.old/source/test/checkasm-a.asm	2016-02-12 10:31:43.999774229 +0100
-+++ x265_1.9/source/test/checkasm-a.asm	2016-02-12 10:31:50.632865669 +0100
+diff -Naur x265_2.5.old/source/test/checkasm-a.asm x265_2.5/source/test/checkasm-a.asm
+--- x265_2.5.old/source/test/checkasm-a.asm	2017-08-22 15:51:27.389334863 +0200
++++ x265_2.5/source/test/checkasm-a.asm	2017-08-22 15:51:36.117497628 +0200
 @@ -156,7 +156,7 @@
      mov  r9, rax
      mov r10, rdx

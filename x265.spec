@@ -54,7 +54,7 @@ performance on a wide variety of hardware platforms.
 This package contains the shared library development files.
 
 %prep
-%autosetup -p1 -n %{name}_%{version}
+%autosetup -p1 -n %{name}_v%{version}
 
 %build
 # High depth libraries (from source/h265.h):

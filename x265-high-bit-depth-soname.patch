@@ -1,7 +1,7 @@
-diff -Naur x265_2.5.old/source/CMakeLists.txt x265_2.5/source/CMakeLists.txt
---- x265_2.5.old/source/CMakeLists.txt	2017-08-22 15:52:23.306377617 +0200
-+++ x265_2.5/source/CMakeLists.txt	2017-08-22 15:52:43.531754785 +0200
-@@ -581,7 +581,15 @@
+diff -Naur x265_2.7.old/source/CMakeLists.txt x265_2.7/source/CMakeLists.txt
+--- x265_2.7.old/source/CMakeLists.txt	2018-04-24 21:44:50.859816691 +0200
++++ x265_2.7/source/CMakeLists.txt	2018-04-24 21:44:57.527939350 +0200
+@@ -601,7 +601,15 @@
      if(MSVC)
          set_target_properties(x265-shared PROPERTIES OUTPUT_NAME libx265)
      else()
@@ -18,10 +18,10 @@ diff -Naur x265_2.5.old/source/CMakeLists.txt x265_2.5/source/CMakeLists.txt
      endif()
      if(UNIX)
          set_target_properties(x265-shared PROPERTIES VERSION ${X265_BUILD})
-diff -Naur x265_2.5.old/source/encoder/api.cpp x265_2.5/source/encoder/api.cpp
---- x265_2.5.old/source/encoder/api.cpp	2017-08-22 15:51:27.387334826 +0200
-+++ x265_2.5/source/encoder/api.cpp	2017-08-22 15:52:43.531754785 +0200
-@@ -419,7 +419,7 @@
+diff -Naur x265_2.7.old/source/encoder/api.cpp x265_2.7/source/encoder/api.cpp
+--- x265_2.7.old/source/encoder/api.cpp	2018-04-24 21:40:17.655791157 +0200
++++ x265_2.7/source/encoder/api.cpp	2018-04-24 21:44:57.528939368 +0200
+@@ -473,7 +473,7 @@
  #define ext ".dylib"
  #else
  #include <dlfcn.h>

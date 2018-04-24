@@ -1,7 +1,7 @@
-diff -Naur x265_2.5.old/source/CMakeLists.txt x265_2.5/source/CMakeLists.txt
---- x265_2.5.old/source/CMakeLists.txt	2017-08-22 15:51:27.377334639 +0200
-+++ x265_2.5/source/CMakeLists.txt	2017-08-22 15:51:36.116497609 +0200
-@@ -196,7 +196,7 @@
+diff -Naur x265_2.7.old/source/CMakeLists.txt x265_2.7/source/CMakeLists.txt
+--- x265_2.7.old/source/CMakeLists.txt	2018-04-24 21:40:17.644790954 +0200
++++ x265_2.7/source/CMakeLists.txt	2018-04-24 21:40:52.199426580 +0200
+@@ -204,7 +204,7 @@
          add_definitions(-std=gnu++98)
      endif()
      if(ENABLE_PIC)
@@ -10,15 +10,3 @@ diff -Naur x265_2.5.old/source/CMakeLists.txt x265_2.5/source/CMakeLists.txt
      endif(ENABLE_PIC)
      if(NATIVE_BUILD)
          if(INTEL_CXX)
-diff -Naur x265_2.5.old/source/test/checkasm-a.asm x265_2.5/source/test/checkasm-a.asm
---- x265_2.5.old/source/test/checkasm-a.asm	2017-08-22 15:51:27.389334863 +0200
-+++ x265_2.5/source/test/checkasm-a.asm	2017-08-22 15:51:36.117497628 +0200
-@@ -156,7 +156,7 @@
-     mov  r9, rax
-     mov r10, rdx
-     lea  r0, [error_message]
--    call puts
-+    call puts wrt ..plt
-     mov  r1, [rsp+max_args*8]
-     mov  dword [r1], 0
-     mov  rdx, r10

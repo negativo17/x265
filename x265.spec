@@ -1,6 +1,6 @@
 Summary:    H.265/HEVC encoder
 Name:       x265
-Version:    2.6
+Version:    2.7
 Release:    1%{?dist}
 Epoch:      1
 URL:        http://x265.org/
@@ -11,15 +11,14 @@ License:    GPLv2+ and BSD
 
 Source0:    https://bitbucket.org/multicoreware/%{name}/downloads/%{name}_%{version}.tar.gz
 
-# link test binaries with shared library
-Patch1:     x265-test-shared.patch
 # fix building as PIC
 Patch2:     x265-pic.patch
 Patch3:     x265-high-bit-depth-soname.patch
 Patch4:     x265-detect_cpu_armhfp.patch
 
-BuildRequires:  cmake
-BuildRequires:  yasm
+BuildRequires:  cmake3
+# Should be >= 2.13:
+BuildRequires:  nasm
 
 %ifnarch armv7hl armv7hnl s390 s390x
 BuildRequires:  numactl-devel
@@ -54,7 +53,7 @@ performance on a wide variety of hardware platforms.
 This package contains the shared library development files.
 
 %prep
-%autosetup -p1 -n %{name}_v%{version}
+%autosetup -p1 -n %{name}_%{version}
 
 %build
 # High depth libraries (from source/h265.h):
@@ -65,7 +64,7 @@ This package contains the shared library development files.
 #     10bit: libx265_main10.so
 
 build() {
-%cmake -G "Unix Makefiles" \
+%cmake3 -G "Unix Makefiles" \
     -DCMAKE_POSITION_INDEPENDENT_CODE:BOOL=ON \
     -DCMAKE_SKIP_RPATH:BOOL=YES \
     -DENABLE_PIC:BOOL=ON \
@@ -108,7 +107,7 @@ find %{buildroot} -name "*.a" -delete
 for i in 8 10 12; do
     if [ -d ${i}bit ]; then
         pushd ${i}bit
-            LD_LIBRARY_PATH=%{buildroot}%{_libdir} test/TestBench || :
+            test/TestBench || :
         popd
     fi
 done
@@ -136,6 +135,9 @@ done
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Tue Apr 24 2018 Simone Caronni <negativo17@gmail.com> - 1:2.7-1
+- Update to 2.7.
+
 * Sat Jan 06 2018 Simone Caronni <negativo17@gmail.com> - 1:2.6-1
 - Update to version 2.6.
 

@@ -55,6 +55,8 @@ This package contains the shared library development files.
 %prep
 %autosetup -p1 -n %{name}_%{version}
 
+sed -i -e 's|libdir=${exec_prefix}/@LIB_INSTALL_DIR@|libdir=@LIB_INSTALL_DIR@|g' source/x265.pc.in
+
 %build
 # High depth libraries (from source/h265.h):
 #   If the requested bitDepth is not supported by the linked libx265,

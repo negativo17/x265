@@ -1,7 +1,7 @@
 Summary:    H.265/HEVC encoder
 Name:       x265
 Version:    2.8
-Release:    1%{?dist}
+Release:    2%{?dist}
 Epoch:      1
 URL:        http://x265.org/
 # source/Lib/TLibCommon - BSD
@@ -17,6 +17,7 @@ Patch3:     x265-high-bit-depth-soname.patch
 Patch4:     x265-detect_cpu_armhfp.patch
 
 BuildRequires:  cmake3
+BuildRequires:  gcc
 # Should be >= 2.13:
 BuildRequires:  nasm
 
@@ -137,6 +138,9 @@ done
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Thu Sep 20 2018 Simone Caronni <negativo17@gmail.com> - 1:2.8-2
+- Add GCC build requirement.
+
 * Mon Jul 16 2018 Simone Caronni <negativo17@gmail.com> - 1:2.8-1
 - Update to 2.8.
 

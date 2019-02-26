@@ -1,6 +1,6 @@
 Summary:    H.265/HEVC encoder
 Name:       x265
-Version:    2.9
+Version:    3.0
 Release:    1%{?dist}
 Epoch:      1
 URL:        http://x265.org/
@@ -115,9 +115,7 @@ for i in 8 10 12; do
     fi
 done
 
-%post libs -p /sbin/ldconfig
-
-%postun libs -p /sbin/ldconfig
+%ldconfig_scriptlets libs
 
 %files
 %{_bindir}/%{name}
@@ -138,6 +136,9 @@ done
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Tue Feb 26 2019 Simone Caronni <negativo17@gmail.com> - 1:3.0-1
+- Update to 3.0.
+
 * Mon Nov 12 2018 Simone Caronni <negativo17@gmail.com> - 1:2.9-1
 - Update to 2.9.
 

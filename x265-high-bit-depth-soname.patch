@@ -1,7 +1,7 @@
-diff -Naur x265_2.7.old/source/CMakeLists.txt x265_2.7/source/CMakeLists.txt
---- x265_2.7.old/source/CMakeLists.txt	2018-04-24 21:44:50.859816691 +0200
-+++ x265_2.7/source/CMakeLists.txt	2018-04-24 21:44:57.527939350 +0200
-@@ -601,7 +601,15 @@
+diff -Naur x265_3.0.old/source/CMakeLists.txt x265_3.0/source/CMakeLists.txt
+--- x265_3.0.old/source/CMakeLists.txt	2019-02-26 22:30:59.356613077 +0100
++++ x265_3.0/source/CMakeLists.txt	2019-02-26 22:31:07.500763202 +0100
+@@ -611,7 +611,15 @@
      if(MSVC)
          set_target_properties(x265-shared PROPERTIES OUTPUT_NAME libx265)
      else()
@@ -18,15 +18,15 @@ diff -Naur x265_2.7.old/source/CMakeLists.txt x265_2.7/source/CMakeLists.txt
      endif()
      if(UNIX)
          set_target_properties(x265-shared PROPERTIES VERSION ${X265_BUILD})
-diff -Naur x265_2.7.old/source/encoder/api.cpp x265_2.7/source/encoder/api.cpp
---- x265_2.7.old/source/encoder/api.cpp	2018-04-24 21:40:17.655791157 +0200
-+++ x265_2.7/source/encoder/api.cpp	2018-04-24 21:44:57.528939368 +0200
-@@ -473,7 +473,7 @@
+diff -Naur x265_3.0.old/source/encoder/api.cpp x265_3.0/source/encoder/api.cpp
+--- x265_3.0.old/source/encoder/api.cpp	2019-02-26 22:29:35.521067694 +0100
++++ x265_3.0/source/encoder/api.cpp	2019-02-26 22:31:07.500763202 +0100
+@@ -704,7 +704,7 @@
  #define ext ".dylib"
  #else
  #include <dlfcn.h>
 -#define ext ".so"
 +#define ext ".so." xstr(X265_BUILD)
  #endif
- 
- static int g_recursion /* = 0 */;
+ #if defined(__GNUC__) && __GNUC__ >= 8
+ #pragma GCC diagnostic ignored "-Wcast-function-type"

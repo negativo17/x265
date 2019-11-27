@@ -1,6 +1,6 @@
 Summary:    H.265/HEVC encoder
 Name:       x265
-Version:    3.2
+Version:    3.2.1
 Release:    1%{?dist}
 Epoch:      1
 URL:        http://x265.org/
@@ -136,6 +136,9 @@ done
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Wed Nov 27 2019 Simone Caronni <negativo17@gmail.com> - 1:3.2.1-1
+- Update to 3.2.1.
+
 * Sun Oct 20 2019 Simone Caronni <negativo17@gmail.com> - 1:3.2-1
 - Update to 3.2.
 

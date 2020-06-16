@@ -1,6 +1,6 @@
 Summary:    H.265/HEVC encoder
 Name:       x265
-Version:    3.3
+Version:    3.4
 Release:    1%{?dist}
 Epoch:      1
 URL:        http://x265.org/
@@ -12,18 +12,14 @@ License:    GPLv2+ and BSD
 Source0:    https://bitbucket.org/multicoreware/%{name}/downloads/%{name}_%{version}.tar.gz
 
 # fix building as PIC
-Patch2:     x265-pic.patch
-Patch3:     x265-high-bit-depth-soname.patch
-Patch4:     x265-detect_cpu_armhfp.patch
+Patch0:     x265-pic.patch
+Patch1:     x265-high-bit-depth-soname.patch
 
 BuildRequires:  cmake3
 BuildRequires:  gcc-c++
 # Should be >= 2.13:
 BuildRequires:  nasm
-
-%ifnarch armv7hl armv7hnl s390 s390x
 BuildRequires:  numactl-devel
-%endif
 
 %description
 The primary objective of x265 is to become the best H.265/HEVC encoder
@@ -68,10 +64,10 @@ sed -i -e 's|libdir=${exec_prefix}/@LIB_INSTALL_DIR@|libdir=@LIB_INSTALL_DIR@|g'
 
 build() {
 %cmake3 -G "Unix Makefiles" \
-    -DCMAKE_POSITION_INDEPENDENT_CODE:BOOL=ON \
-    -DCMAKE_SKIP_RPATH:BOOL=YES \
-    -DENABLE_PIC:BOOL=ON \
-    -DENABLE_TESTS:BOOL=ON \
+    -DCMAKE_POSITION_INDEPENDENT_CODE=ON \
+    -DCMAKE_SKIP_RPATH=YES \
+    -DENABLE_PIC=ON \
+    -DENABLE_TESTS=ON \
     $* \
     ../source
 %make_build
@@ -136,6 +132,9 @@ done
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Tue Jun 16 2020 Simone Caronni <negativo17@gmail.com> - 1:3.4-1
+- Update to 3.4.
+
 * Sun Mar 15 2020 Simone Caronni <negativo17@gmail.com> - 1:3.3-1
 - Update to 3.3.
 

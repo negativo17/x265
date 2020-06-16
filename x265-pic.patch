@@ -1,7 +1,7 @@
-diff -Naur x265_3.0.old/source/CMakeLists.txt x265_3.0/source/CMakeLists.txt
---- x265_3.0.old/source/CMakeLists.txt	2019-02-26 22:29:35.511067510 +0100
-+++ x265_3.0/source/CMakeLists.txt	2019-02-26 22:30:07.411655550 +0100
-@@ -212,7 +212,7 @@
+diff -Naur x265_3.4.old/source/CMakeLists.txt x265_3.4/source/CMakeLists.txt
+--- x265_3.4.old/source/CMakeLists.txt	2020-06-23 21:23:30.696701498 +0200
++++ x265_3.4/source/CMakeLists.txt	2020-06-23 21:23:40.196025308 +0200
+@@ -220,7 +220,7 @@
          add_definitions(-std=gnu++98)
      endif()
      if(ENABLE_PIC)

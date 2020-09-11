@@ -1,7 +1,7 @@
 Summary:    H.265/HEVC encoder
 Name:       x265
 Version:    3.4
-Release:    1%{?dist}
+Release:    2%{?dist}
 Epoch:      1
 URL:        http://x265.org/
 # source/Lib/TLibCommon - BSD
@@ -67,6 +67,7 @@ build() {
     -DCMAKE_POSITION_INDEPENDENT_CODE=ON \
     -DCMAKE_SKIP_RPATH=YES \
     -DENABLE_PIC=ON \
+    -DENABLE_SHARED=ON \
     -DENABLE_TESTS=ON \
     $* \
     ../source
@@ -86,7 +87,7 @@ popd
 
 # 8 bit + CLI
 mkdir 8bit; pushd 8bit
-    build
+    build -DENABLE_HDR10_PLUS=YES
 popd
 
 %install
@@ -118,6 +119,7 @@ done
 
 %files libs
 %license COPYING
+%{_libdir}/libhdr10plus.so
 %{_libdir}/lib%{name}.so.*
 %ifarch x86_64
 %{_libdir}/lib%{name}_main10.so.*
@@ -126,12 +128,17 @@ done
 
 %files devel
 %doc doc/*
+%{_includedir}/hdr10plus.h
 %{_includedir}/%{name}.h
 %{_includedir}/%{name}_config.h
 %{_libdir}/lib%{name}.so
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Fri Sep 11 2020 Simone Caronni <negativo17@gmail.com> - 1:3.4-2
+- Enable HDR10+.
+- Trim changelog.
+
 * Tue Jun 16 2020 Simone Caronni <negativo17@gmail.com> - 1:3.4-1
 - Update to 3.4.
 
@@ -152,62 +159,3 @@ done
 
 * Tue Feb 26 2019 Simone Caronni <negativo17@gmail.com> - 1:3.0-1
 - Update to 3.0.
-
-* Mon Nov 12 2018 Simone Caronni <negativo17@gmail.com> - 1:2.9-1
-- Update to 2.9.
-
-* Thu Sep 20 2018 Simone Caronni <negativo17@gmail.com> - 1:2.8-2
-- Add GCC build requirement.
-
-* Mon Jul 16 2018 Simone Caronni <negativo17@gmail.com> - 1:2.8-1
-- Update to 2.8.
-
-* Tue Apr 24 2018 Simone Caronni <negativo17@gmail.com> - 1:2.7-1
-- Update to 2.7.
-
-* Sat Jan 06 2018 Simone Caronni <negativo17@gmail.com> - 1:2.6-1
-- Update to version 2.6.
-
-* Tue Aug 22 2017 Simone Caronni <negativo17@gmail.com> - 1:2.5-1
-- Update to 2.5.
-
-* Sat May 06 2017 Simone Caronni <negativo17@gmail.com> - 1:2.4-1
-- Update to 2.4.
-
-* Tue Apr 11 2017 Simone Caronni <negativo17@gmail.com> - 1:2.3-2
-- Clean up SPEC file, rework build section.
-- Make the main library load the versioned variants of the high depth builds.
-
-* Tue Feb 21 2017 Stefan Bluhm <stefan.bluhm@clacee.eu> - 1:2.3-1
-- Update to 2.3.
-- Fix to ignore NUNA for ARM processors as ARM is not supported by the nunactl package.
-
-* Tue Jan 03 2017 Simone Caronni <negativo17@gmail.com> - 1:2.2-1
-- Update to 2.2.
-
-* Sat Oct 08 2016 Simone Caronni <negativo17@gmail.com> - 1:2.1-2
-- Rebuild for 2.1 hotfix, same tarball name, different file.
-
-* Sun Oct 02 2016 Simone Caronni <negativo17@gmail.com> - 1:2.1-1
-- Update to version 2.1.
-
-* Wed Aug 17 2016 Simone Caronni <negativo17@gmail.com> - 1:1.9-2
-- Bump Epoch.
-
-* Fri Feb 12 2016 Simone Caronni <negativo17@gmail.com> - 1.9-1
-- Update to version 1.9.
-
-* Sun Feb 07 2016 Simone Caronni <negativo17@gmail.com> - 1.8-4
-- Fix 10/12 bit libraries SONAME.
-
-* Thu Feb 04 2016 Simone Caronni <negativo17@gmail.com> - 1.8-3
-- Create 8/10/12 bit libraries for x86_64 builds.
-- Add NUMA support. SGI UV 200 I'm coming!!...
-
-* Tue Dec 15 2015 Simone Caronni <negativo17@gmail.com> - 1.8-2
-- Make it build also on RHEL/CentOS.
-- Add license macro.
-
-* Sun Oct 25 2015 Dominik Mierzejewski <rpm@greysector.net> 1.8-2
-- fix building as PIC
-- update SO version in file list

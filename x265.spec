@@ -12,8 +12,10 @@ License:    GPLv2+ and BSD
 Source0:    https://bitbucket.org/multicoreware/%{name}/downloads/%{name}_%{version}.tar.gz
 
 # fix building as PIC
-Patch0:     x265-pic.patch
-Patch1:     x265-high-bit-depth-soname.patch
+Patch0:     %{name}-pic.patch
+Patch1:     %{name}-high-bit-depth-soname.patch
+Patch2:     %{name}-detect_cpu_armhfp.patch
+Patch3:     %{name}-arm-cflags.patch
 
 BuildRequires:  cmake3
 BuildRequires:  gcc-c++
@@ -75,7 +77,7 @@ build() {
 }
 
 # 10/12 bit libraries are supported only on 64 bit.
-%ifarch x86_64
+%ifarch x86_64 aarch64
 mkdir 10bit; pushd 10bit
     build -DENABLE_CLI=OFF -DHIGH_BIT_DEPTH=ON
 popd
@@ -121,7 +123,7 @@ done
 %license COPYING
 %{_libdir}/libhdr10plus.so
 %{_libdir}/lib%{name}.so.*
-%ifarch x86_64
+%ifarch x86_64 aarch64
 %{_libdir}/lib%{name}_main10.so.*
 %{_libdir}/lib%{name}_main12.so.*
 %endif

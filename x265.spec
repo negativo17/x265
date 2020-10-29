@@ -1,3 +1,5 @@
+%global __cmake_in_source_build 1
+
 Summary:    H.265/HEVC encoder
 Name:       x265
 Version:    3.4

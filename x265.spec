@@ -2,8 +2,8 @@
 
 Summary:    H.265/HEVC encoder
 Name:       x265
-Version:    3.4
-Release:    2%{?dist}
+Version:    3.5
+Release:    1%{?dist}
 Epoch:      1
 URL:        http://x265.org/
 # source/Lib/TLibCommon - BSD
@@ -11,7 +11,7 @@ URL:        http://x265.org/
 # everything else - GPLv2+
 License:    GPLv2+ and BSD
 
-Source0:    https://bitbucket.org/multicoreware/%{name}/downloads/%{name}_%{version}.tar.gz
+Source0:    https://bitbucket.org/multicoreware/%{name}_git/downloads/%{name}_%{version}.tar.gz
 
 # fix building as PIC
 Patch0:     %{name}-pic.patch
@@ -139,6 +139,9 @@ done
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Wed Mar 17 2021 Simone Caronni <negativo17@gmail.com> - 1:3.5-1
+- Update to 3.5.
+
 * Fri Sep 11 2020 Simone Caronni <negativo17@gmail.com> - 1:3.4-2
 - Enable HDR10+.
 - Trim changelog.

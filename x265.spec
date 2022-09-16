@@ -1,11 +1,9 @@
-%global __cmake_in_source_build 1
-
 %global api_version 199
 
 Summary:    H.265/HEVC encoder
 Name:       x265
 Version:    3.5
-Release:    1%{?dist}
+Release:    2%{?dist}
 Epoch:      1
 URL:        http://x265.org/
 # source/Lib/TLibCommon - BSD
@@ -92,7 +90,6 @@ build() {
 }
 
 # 10/12 bit libraries are supported only on 64 bit
-%ifarch x86_64 aarch64
 mkdir 12bit; pushd 12bit
   build \
     -DENABLE_CLI=OFF \
@@ -105,7 +102,6 @@ mkdir 10bit; pushd 10bit
     -DENABLE_CLI=OFF \
     -DHIGH_BIT_DEPTH=ON
 popd
-%endif
 
 # 8 bit + dynamicHDR CLI
 # TestBench dlopens the appropriate x265 library
@@ -137,10 +133,8 @@ find %{buildroot} -name "*.a" -delete
 %license COPYING
 %{_libdir}/libhdr10plus.so
 %{_libdir}/lib%{name}.so.%{api_version}
-%ifarch x86_64 aarch64
 %{_libdir}/lib%{name}_main10.so.%{api_version}
 %{_libdir}/lib%{name}_main12.so.%{api_version}
-%endif
 
 %files devel
 %doc doc/*
@@ -151,6 +145,9 @@ find %{buildroot} -name "*.a" -delete
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Fri Sep 16 2022 Simone Caronni <negativo17@gmail.com> - 1:3.5-2
+- Clean up SPEC file, split per branch.
+
 * Wed Mar 24 2021 Simone Caronni <negativo17@gmail.com> - 1:3.5-1
 - Update to 3.5.
 - Enable SVT-HEVC support on x86_64.

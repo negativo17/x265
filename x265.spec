@@ -1,9 +1,14 @@
-%global api_version 199
+%global commit0 931178347b3f73e40798fd5180209654536bbaa5
+%global date 20220912
+%global shortcommit0 %(c=%{commit0}; echo ${c:0:12})
+#global tag %{version}
+
+%global api_version 204
 
 Summary:    H.265/HEVC encoder
 Name:       x265
-Version:    3.5
-Release:    2%{?dist}
+Version:    3.6
+Release:    1%{!?tag:.%{date}git%{shortcommit0}}%{?dist}
 Epoch:      1
 URL:        http://x265.org/
 # source/Lib/TLibCommon - BSD
@@ -11,7 +16,11 @@ URL:        http://x265.org/
 # everything else - GPLv2+
 License:    GPLv2+ and BSD
 
+%if 0%{?tag:1}
 Source0:    https://bitbucket.org/multicoreware/%{name}_git/downloads/%{name}_%{version}.tar.gz
+%else
+Source0:    https://bitbucket.org/multicoreware/%{name}_git/get/%{commit0}.tar.gz#/%{name}-%{shortcommit0}.tar.gz
+%endif
 Patch0:     %{name}-pic.patch
 Patch1:     %{name}-high-bit-depth-soname.patch
 Patch2:     %{name}-detect_cpu_armhfp.patch
@@ -55,7 +64,11 @@ performance on a wide variety of hardware platforms.
 This package contains the shared library development files.
 
 %prep
+%if 0%{?tag:1}
 %autosetup -p1 -n %{name}_%{version}
+%else
+%autosetup -p1 -n multicoreware-%{name}_git-%{shortcommit0}
+%endif
 
 sed -i -e 's|libdir=${exec_prefix}/@LIB_INSTALL_DIR@|libdir=@LIB_INSTALL_DIR@|g' source/x265.pc.in
 
@@ -143,6 +156,9 @@ find %{buildroot} -name "*.a" -delete
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Fri Sep 16 2022 Simone Caronni <negativo17@gmail.com> - 1:3.6-1.20220912git931178347b3f
+- Update to latest 3.6 snapshot.
+
 * Fri Sep 16 2022 Simone Caronni <negativo17@gmail.com> - 1:3.5-2
 - Clean up SPEC file, split per branch.
 

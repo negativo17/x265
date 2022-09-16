@@ -1,46 +1,36 @@
---- x265_3.4/source/CMakeLists.txt.cflags
-+++ x265_3.4/source/CMakeLists.txt
-@@ -238,28 +238,6 @@
+diff -Naur multicoreware-x265_git-931178347b3f.old/source/CMakeLists.txt multicoreware-x265_git-931178347b3f/source/CMakeLists.txt
+--- multicoreware-x265_git-931178347b3f.old/source/CMakeLists.txt	2022-09-16 09:59:59.187261534 +0200
++++ multicoreware-x265_git-931178347b3f/source/CMakeLists.txt	2022-09-16 10:03:34.625384755 +0200
+@@ -247,26 +247,6 @@
              endif()
          endif()
      endif()
 -    if(ARM AND CROSS_COMPILE_ARM)
--        if(ARM64)
--            set(ARM_ARGS -fPIC)
--        else()
--            set(ARM_ARGS -march=armv6 -mfloat-abi=soft -mfpu=vfp -marm -fPIC)
--        endif()
 -        message(STATUS "cross compile arm")
+-		set(ARM_ARGS -march=armv6 -mfloat-abi=soft -mfpu=vfp -marm -fPIC)
 -    elseif(ARM)
--        if(ARM64)
--            set(ARM_ARGS -fPIC)
+-        find_package(Neon)
+-        if(CPU_HAS_NEON)
+-            set(ARM_ARGS -mcpu=native -mfloat-abi=hard -mfpu=neon -marm -fPIC)
 -            add_definitions(-DHAVE_NEON)
 -        else()
--            find_package(Neon)
--            if(CPU_HAS_NEON)
--                set(ARM_ARGS -mcpu=native -mfloat-abi=hard -mfpu=neon -marm -fPIC)
--                add_definitions(-DHAVE_NEON)
--            else()
--                set(ARM_ARGS -mcpu=native -mfloat-abi=hard -mfpu=vfp -marm)
--            endif()
+-            set(ARM_ARGS -mcpu=native -mfloat-abi=hard -mfpu=vfp -marm)
+-        endif()
+-    endif()
+-	if(ARM64 OR CROSS_COMPILE_ARM64)
+-	    set(ARM_ARGS -fPIC -flax-vector-conversions)
+-        find_package(Neon)
+-        if(CPU_HAS_NEON)
+-            add_definitions(-DHAVE_NEON)
 -        endif()
 -    endif()
 -    add_definitions(${ARM_ARGS})
      if(FPROFILE_GENERATE)
          if(INTEL_CXX)
              add_definitions(-prof-gen -prof-dir="${CMAKE_CURRENT_BINARY_DIR}")
-@@ -546,7 +524,7 @@
-             add_custom_command(
-                 OUTPUT ${ASM}.${SUFFIX}
-                 COMMAND ${CMAKE_CXX_COMPILER}
--                ARGS ${ARM_ARGS} -c ${ASM_SRC} -o ${ASM}.${SUFFIX}
-+                ARGS ${CFLAGS} -c ${ASM_SRC} -o ${ASM}.${SUFFIX}
-                 DEPENDS ${ASM_SRC})
-         endforeach()
-     elseif(X86)
-
---- x265_3.4/source/dynamicHDR10/CMakeLists.txt.cflags
-+++ x265_3.4/source/dynamicHDR10/CMakeLists.txt
+diff -Naur multicoreware-x265_git-931178347b3f.old/source/dynamicHDR10/CMakeLists.txt multicoreware-x265_git-931178347b3f/source/dynamicHDR10/CMakeLists.txt
+--- multicoreware-x265_git-931178347b3f.old/source/dynamicHDR10/CMakeLists.txt	2022-09-16 09:56:11.534906598 +0200
++++ multicoreware-x265_git-931178347b3f/source/dynamicHDR10/CMakeLists.txt	2022-09-16 10:03:48.721656028 +0200
 @@ -42,18 +42,6 @@
              endif()
          endif()
@@ -60,4 +50,10 @@
      if(FPROFILE_GENERATE)
          if(INTEL_CXX)
              add_definitions(-prof-gen -prof-dir="${CMAKE_CURRENT_BINARY_DIR}")
-
+@@ -150,4 +138,4 @@
+ option(ENABLE_SHARED "Build shared library" OFF)
+ 
+ install(FILES hdr10plus.h DESTINATION include)
+-endif()
+\ No newline at end of file
++endif()

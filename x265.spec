@@ -1,11 +1,9 @@
-%global __cmake_in_source_build 1
-
 %global api_version 199
 
 Summary:    H.265/HEVC encoder
 Name:       x265
 Version:    3.5
-Release:    1%{?dist}
+Release:    2%{?dist}
 Epoch:      1
 URL:        http://x265.org/
 # source/Lib/TLibCommon - BSD
@@ -20,7 +18,7 @@ Patch2:     %{name}-detect_cpu_armhfp.patch
 Patch3:     %{name}-arm-cflags.patch
 Patch4:     %{name}-svt-hevc.patch
 
-BuildRequires:  cmake3
+BuildRequires:  cmake
 BuildRequires:  gcc-c++
 BuildRequires:  nasm >= 2.13
 BuildRequires:  numactl-devel
@@ -75,7 +73,7 @@ sed -i -e 's|libdir=${exec_prefix}/@LIB_INSTALL_DIR@|libdir=@LIB_INSTALL_DIR@|g'
 
 # Setting GIT_ARCHETYPE to 1 is like using git as a build dependency:
 build() {
-%cmake3 -G "Unix Makefiles" \
+%cmake -G "Unix Makefiles" \
   -DCMAKE_POSITION_INDEPENDENT_CODE=ON \
   -DCMAKE_SKIP_RPATH=YES \
   -DENABLE_ASSEMBLY=ON \
@@ -88,11 +86,10 @@ build() {
 %endif
   $* \
   ../source
-%cmake3_build
+%cmake_build
 }
 
 # 10/12 bit libraries are supported only on 64 bit
-%ifarch x86_64 aarch64
 mkdir 12bit; pushd 12bit
   build \
     -DENABLE_CLI=OFF \
@@ -105,7 +102,6 @@ mkdir 10bit; pushd 10bit
     -DENABLE_CLI=OFF \
     -DHIGH_BIT_DEPTH=ON
 popd
-%endif
 
 # 8 bit + dynamicHDR CLI
 # TestBench dlopens the appropriate x265 library
@@ -118,17 +114,15 @@ popd
 
 %install
 pushd 8bit
-  %cmake3_install
+  %cmake_install
 popd
 
 install -m 0755 -p \
-  12bit/libx265_main12.so.%{api_version} \
-  10bit/libx265_main10.so.%{api_version} \
+  12bit/%{_vpath_builddir}/libx265_main12.so.%{api_version} \
+  10bit/%{_vpath_builddir}/libx265_main10.so.%{api_version} \
   %{buildroot}%{_libdir}
 
 find %{buildroot} -name "*.a" -delete
-
-%ldconfig_scriptlets libs
 
 %files
 %{_bindir}/%{name}
@@ -137,10 +131,8 @@ find %{buildroot} -name "*.a" -delete
 %license COPYING
 %{_libdir}/libhdr10plus.so
 %{_libdir}/lib%{name}.so.%{api_version}
-%ifarch x86_64 aarch64
 %{_libdir}/lib%{name}_main10.so.%{api_version}
 %{_libdir}/lib%{name}_main12.so.%{api_version}
-%endif
 
 %files devel
 %doc doc/*
@@ -151,6 +143,9 @@ find %{buildroot} -name "*.a" -delete
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Fri Sep 16 2022 Simone Caronni <negativo17@gmail.com> - 1:3.5-2
+- Clean up SPEC file, split per branch.
+
 * Wed Mar 24 2021 Simone Caronni <negativo17@gmail.com> - 1:3.5-1
 - Update to 3.5.
 - Enable SVT-HEVC support on x86_64.

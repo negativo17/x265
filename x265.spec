@@ -24,8 +24,7 @@ Source0:    https://bitbucket.org/multicoreware/%{name}_git/get/%{commit0}.tar.g
 Patch0:     %{name}-pic.patch
 Patch1:     %{name}-high-bit-depth-soname.patch
 Patch2:     %{name}-detect_cpu_armhfp.patch
-Patch3:     %{name}-arm-cflags.patch
-Patch4:     %{name}-svt-hevc.patch
+Patch3:     %{name}-svt-hevc.patch
 
 BuildRequires:  cmake3
 BuildRequires:  gcc-c++
@@ -160,6 +159,7 @@ find %{buildroot} -name "*.a" -delete
 %changelog
 * Fri Sep 16 2022 Simone Caronni <negativo17@gmail.com> - 1:3.6-1.20220912git931178347b3f
 - Update to latest 3.6 snapshot.
+- Drop arm patch.
 
 * Fri Sep 16 2022 Simone Caronni <negativo17@gmail.com> - 1:3.5-2
 - Clean up SPEC file, split per branch.

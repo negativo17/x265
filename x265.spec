@@ -8,7 +8,7 @@
 Summary:    H.265/HEVC encoder
 Name:       x265
 Version:    3.6
-Release:    1%{!?tag:.%{date}git%{shortcommit0}}%{?dist}
+Release:    2%{!?tag:.%{date}git%{shortcommit0}}%{?dist}
 Epoch:      1
 URL:        http://x265.org/
 # source/Lib/TLibCommon - BSD
@@ -89,6 +89,7 @@ build() {
   -DCMAKE_POSITION_INDEPENDENT_CODE=ON \
   -DCMAKE_SKIP_RPATH=YES \
   -DENABLE_ASSEMBLY=ON \
+  -DENABLE_HDR10_PLUS=YES \
   -DENABLE_PIC=ON \
   -DENABLE_SHARED=ON \
   -DGIT_ARCHETYPE="1" \
@@ -121,7 +122,6 @@ mkdir 8bit; pushd 8bit
   build \
     -DENABLE_CLI=ON \
     -DENABLE_TESTS=ON \
-    -DENABLE_HDR10_PLUS=YES
 popd
 
 %install
@@ -157,6 +157,9 @@ find %{buildroot} -name "*.a" -delete
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Tue Jan 03 2023 Simone Caronni <negativo17@gmail.com> - 1:3.6-2.20220912git931178347b3f
+- Enable HDR10+ on all combinations (#2).
+
 * Fri Sep 16 2022 Simone Caronni <negativo17@gmail.com> - 1:3.6-1.20220912git931178347b3f
 - Update to latest 3.6 snapshot.
 - Drop arm patch.

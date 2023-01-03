@@ -1,9 +1,9 @@
-%global commit0 931178347b3f73e40798fd5180209654536bbaa5
-%global date 20220912
+%global commit0 82225f9a56f96f7d252724249b5ba056feac858d
+%global date 20221229
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:12})
 #global tag %{version}
 
-%global api_version 204
+%global api_version 206
 
 Summary:    H.265/HEVC encoder
 Name:       x265
@@ -155,7 +155,8 @@ find %{buildroot} -name "*.a" -delete
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
-* Tue Jan 03 2023 Simone Caronni <negativo17@gmail.com> - 1:3.6-2.20220912git931178347b3f
+* Tue Jan 03 2023 Simone Caronni <negativo17@gmail.com> - 1:3.6-2.20221229git82225f9a56f9
+- Update to latest snapshot.
 - Enable HDR10+ on all combinations (#2).
 
 * Fri Sep 16 2022 Simone Caronni <negativo17@gmail.com> - 1:3.6-1.20220912git931178347b3f

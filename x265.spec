@@ -1,14 +1,14 @@
-%global commit0 82225f9a56f96f7d252724249b5ba056feac858d
-%global date 20221229
+%global commit0 38cf1c379b5af08856bb2fdd65f65a1f99384886
+%global date 20230222
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:12})
 #global tag %{version}
 
-%global api_version 206
+%global api_version 207
 
 Summary:    H.265/HEVC encoder
 Name:       x265
 Version:    3.6
-Release:    2%{!?tag:.%{date}git%{shortcommit0}}%{?dist}
+Release:    3%{!?tag:.%{date}git%{shortcommit0}}%{?dist}
 Epoch:      1
 URL:        http://x265.org/
 # source/Lib/TLibCommon - BSD
@@ -155,6 +155,9 @@ find %{buildroot} -name "*.a" -delete
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Mon Feb 27 2023 Simone Caronni <negativo17@gmail.com> - 1:3.6-3.20230222git38cf1c379b5a
+- Update to latest snapshot.
+
 * Tue Jan 03 2023 Simone Caronni <negativo17@gmail.com> - 1:3.6-2.20221229git82225f9a56f9
 - Update to latest snapshot.
 - Enable HDR10+ on all combinations (#2).

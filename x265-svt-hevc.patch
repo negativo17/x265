@@ -1,6 +1,6 @@
-diff -Naur x265_3.5.old/source/cmake/Findsvthevc.cmake x265_3.5/source/cmake/Findsvthevc.cmake
---- x265_3.5.old/source/cmake/Findsvthevc.cmake	2021-03-17 16:53:52.670339577 +0100
-+++ x265_3.5/source/cmake/Findsvthevc.cmake	2021-03-17 16:54:40.429142730 +0100
+diff -Naur multicoreware-x265_git-34532bda12a3.old/source/cmake/Findsvthevc.cmake multicoreware-x265_git-34532bda12a3/source/cmake/Findsvthevc.cmake
+--- multicoreware-x265_git-34532bda12a3.old/source/cmake/Findsvthevc.cmake	2023-05-31 16:16:07.810665977 +0200
++++ multicoreware-x265_git-34532bda12a3/source/cmake/Findsvthevc.cmake	2023-05-31 16:18:31.988869969 +0200
 @@ -38,13 +38,7 @@
          string(REGEX MATCH "SVT_VERSION_PATCHLEVEL  \\(([0-9]*)\\)" _ ${version})
          set(SVT_VERSION_PATCHLEVEL ${CMAKE_MATCH_1})
@@ -16,10 +16,10 @@ diff -Naur x265_3.5.old/source/cmake/Findsvthevc.cmake x265_3.5/source/cmake/Fin
      endif()
  endif()
  
-diff -Naur x265_3.5.old/source/CMakeLists.txt x265_3.5/source/CMakeLists.txt
---- x265_3.5.old/source/CMakeLists.txt	2021-03-17 16:53:52.668339543 +0100
-+++ x265_3.5/source/CMakeLists.txt	2021-03-18 09:33:35.818689816 +0100
-@@ -592,12 +592,6 @@
+diff -Naur multicoreware-x265_git-34532bda12a3.old/source/CMakeLists.txt multicoreware-x265_git-34532bda12a3/source/CMakeLists.txt
+--- multicoreware-x265_git-34532bda12a3.old/source/CMakeLists.txt	2023-05-31 16:18:14.387600907 +0200
++++ multicoreware-x265_git-34532bda12a3/source/CMakeLists.txt	2023-05-31 16:18:31.988869969 +0200
+@@ -623,12 +623,6 @@
          ARCHIVE DESTINATION ${LIB_INSTALL_DIR})
  endif()
  
@@ -32,10 +32,10 @@ diff -Naur x265_3.5.old/source/CMakeLists.txt x265_3.5/source/CMakeLists.txt
  install(FILES x265.h "${PROJECT_BINARY_DIR}/x265_config.h" DESTINATION include)
  if((WIN32 AND ENABLE_CLI) OR (WIN32 AND ENABLE_SHARED))
      if(MSVC_IDE)
-diff -Naur x265_3.5.old/source/encoder/api.cpp x265_3.5/source/encoder/api.cpp
---- x265_3.5.old/source/encoder/api.cpp	2021-03-17 16:53:52.938344084 +0100
-+++ x265_3.5/source/encoder/api.cpp	2021-03-18 09:10:57.438837886 +0100
-@@ -450,14 +450,18 @@
+diff -Naur multicoreware-x265_git-34532bda12a3.old/source/encoder/api.cpp multicoreware-x265_git-34532bda12a3/source/encoder/api.cpp
+--- multicoreware-x265_git-34532bda12a3.old/source/encoder/api.cpp	2023-05-31 16:18:14.419601396 +0200
++++ multicoreware-x265_git-34532bda12a3/source/encoder/api.cpp	2023-05-31 16:18:31.989869984 +0200
+@@ -449,14 +449,18 @@
  
                  if (pic_in->rpu.payloadSize)
                  {
@@ -54,7 +54,7 @@ diff -Naur x265_3.5.old/source/encoder/api.cpp x265_3.5/source/encoder/api.cpp
                      inputData->dolbyVisionRpu.payloadSize = 0;
                  }
  
-@@ -695,7 +699,9 @@
+@@ -702,7 +706,9 @@
  
              svt_print_summary(enc);
              EB_H265_ENC_INPUT *inputData = (EB_H265_ENC_INPUT*)encoder->m_svtAppData->inputPictureBuffer->pBuffer;
@@ -64,7 +64,7 @@ diff -Naur x265_3.5.old/source/encoder/api.cpp x265_3.5/source/encoder/api.cpp
  
              X265_FREE(inputData);
              X265_FREE(encoder->m_svtAppData->inputPictureBuffer);
-@@ -2051,7 +2057,9 @@
+@@ -2063,7 +2069,9 @@
      inputPtr->pBuffer = (unsigned char*)x265_malloc(sizeof(EB_H265_ENC_INPUT));
  
      EB_H265_ENC_INPUT *inputData = (EB_H265_ENC_INPUT*)inputPtr->pBuffer;

@@ -1,14 +1,14 @@
-%global commit0 38cf1c379b5af08856bb2fdd65f65a1f99384886
-%global date 20230222
+%global commit0 34532bda12a3a3141880582aa186a59cd4538ae6
+%global date 20230508
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:12})
 #global tag %{version}
 
-%global api_version 207
+%global api_version 208
 
 Summary:    H.265/HEVC encoder
 Name:       x265
 Version:    3.6
-Release:    3%{!?tag:.%{date}git%{shortcommit0}}%{?dist}
+Release:    4%{!?tag:.%{date}git%{shortcommit0}}%{?dist}
 Epoch:      1
 URL:        http://x265.org/
 # source/Lib/TLibCommon - BSD
@@ -21,10 +21,9 @@ Source0:    https://bitbucket.org/multicoreware/%{name}_git/downloads/%{name}_%{
 %else
 Source0:    https://bitbucket.org/multicoreware/%{name}_git/get/%{commit0}.tar.gz#/%{name}-%{shortcommit0}.tar.gz
 %endif
-Patch0:     %{name}-pic.patch
+Patch0:     %{name}-detect_cpu_armhfp.patch
 Patch1:     %{name}-high-bit-depth-soname.patch
-Patch2:     %{name}-detect_cpu_armhfp.patch
-Patch3:     %{name}-svt-hevc.patch
+Patch2:     %{name}-svt-hevc.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -125,14 +124,12 @@ mkdir 8bit; pushd 8bit
 popd
 
 %install
-pushd 8bit
-  %cmake_install
-popd
-
-install -m 0755 -p \
-  12bit/%{_vpath_builddir}/libx265_main12.so.%{api_version} \
-  10bit/%{_vpath_builddir}/libx265_main10.so.%{api_version} \
-  %{buildroot}%{_libdir}
+for i in 8 10 12; do
+  pushd ${i}bit
+    %cmake_install
+    rm -f %{buildroot}%{_libdir}/libx265_main${i}.so
+  popd
+done
 
 find %{buildroot} -name "*.a" -delete
 
@@ -155,6 +152,9 @@ find %{buildroot} -name "*.a" -delete
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Mon May 29 2023 Simone Caronni <negativo17@gmail.com> - 1:3.6-4.20230508git34532bda12a3
+- Update to latest snapshot.
+
 * Mon Feb 27 2023 Simone Caronni <negativo17@gmail.com> - 1:3.6-3.20230222git38cf1c379b5a
 - Update to latest snapshot.
 

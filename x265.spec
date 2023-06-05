@@ -8,7 +8,7 @@
 Summary:    H.265/HEVC encoder
 Name:       x265
 Version:    3.6
-Release:    4%{!?tag:.%{date}git%{shortcommit0}}%{?dist}
+Release:    5%{!?tag:.%{date}git%{shortcommit0}}%{?dist}
 Epoch:      1
 URL:        http://x265.org/
 # source/Lib/TLibCommon - BSD
@@ -24,6 +24,8 @@ Source0:    https://bitbucket.org/multicoreware/%{name}_git/get/%{commit0}.tar.g
 Patch0:     %{name}-detect_cpu_armhfp.patch
 Patch1:     %{name}-high-bit-depth-soname.patch
 Patch2:     %{name}-svt-hevc.patch
+Patch3:     https://raw.githubusercontent.com/HandBrake/HandBrake/master/contrib/x265/A03-sei-length-crash-fix.patch
+Patch4:     https://raw.githubusercontent.com/HandBrake/HandBrake/master/contrib/x265/A04-ambient-viewing-enviroment-sei.patch
 
 BuildRequires:  cmake3
 BuildRequires:  gcc-c++
@@ -154,6 +156,9 @@ find %{buildroot} -name "*.a" -delete
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Mon Jun 05 2023 Simone Caronni <negativo17@gmail.com> - 1:3.6-5.20230508git34532bda12a3
+- Add HandBrake patches.
+
 * Mon May 29 2023 Simone Caronni <negativo17@gmail.com> - 1:3.6-4.20230508git34532bda12a3
 - Update to latest snapshot.
 

@@ -1,5 +1,5 @@
-%global commit0 34532bda12a3a3141880582aa186a59cd4538ae6
-%global date 20230508
+%global commit0 8f18e3ad32684eee95e885e718655f93951128c3
+%global date 20230627
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:12})
 #global tag %{version}
 
@@ -8,7 +8,7 @@
 Summary:    H.265/HEVC encoder
 Name:       x265
 Version:    3.6
-Release:    5%{!?tag:.%{date}git%{shortcommit0}}%{?dist}
+Release:    6%{!?tag:.%{date}git%{shortcommit0}}%{?dist}
 Epoch:      1
 URL:        http://x265.org/
 # source/Lib/TLibCommon - BSD
@@ -154,6 +154,9 @@ find %{buildroot} -name "*.a" -delete
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Fri Jul 07 2023 Simone Caronni <negativo17@gmail.com> - 1:3.6-6.20230627git8f18e3ad3268
+- Update to latest snapshot to silence all NASM warnings.
+
 * Mon Jun 05 2023 Simone Caronni <negativo17@gmail.com> - 1:3.6-5.20230508git34532bda12a3
 - Add HandBrake patches.
 

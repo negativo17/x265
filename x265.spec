@@ -24,10 +24,11 @@ Source0:    https://bitbucket.org/multicoreware/%{name}_git/get/%{commit0}.tar.g
 Patch0:     %{name}-detect_cpu_armhfp.patch
 Patch1:     %{name}-high-bit-depth-soname.patch
 Patch2:     %{name}-svt-hevc.patch
+Patch3:     %{name}-vmaf.patch
 # https://github.com/HandBrake/HandBrake/blob/master/contrib/x265/A03-sei-length-crash-fix.patch
-Patch3:     %{name}-sei-length-crash-fix.patch
+Patch4:     %{name}-sei-length-crash-fix.patch
 # https://github.com/HandBrake/HandBrake/blob/master/contrib/x265/A04-ambient-viewing-enviroment-sei.patch
-Patch4:     %{name}-ambient-viewing-enviroment-sei.patch
+Patch5:     %{name}-ambient-viewing-enviroment-sei.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -35,6 +36,7 @@ BuildRequires:  nasm >= 2.13
 BuildRequires:  numactl-devel
 %ifarch x86_64
 BuildRequires:  svt-hevc-devel
+BuildRequires:  libvmaf-devel
 %endif
 
 %description
@@ -97,8 +99,10 @@ build() {
   -DENABLE_SHARED=ON \
   -DGIT_ARCHETYPE="1" \
 %ifarch x86_64
+  -DENABLE_LIBVMAF=ON \
   -DENABLE_SVT_HEVC=ON \
   -DSVT_HEVC_INCLUDE_DIR=%{_includedir}/svt-hevc \
+  -DVMAF_INCLUDE_DIR=%{_includedir}/libvmaf \
 %endif
   $* \
   ../source
@@ -158,6 +162,7 @@ find %{buildroot} -name "*.a" -delete
 %changelog
 * Sat Sep 30 2023 Simone Caronni <negativo17@gmail.com> - 1:3.6-8.20230917git8ee01d45b05c
 - Update to latest snapshot.
+- Enable VMAF support.
 
 * Tue Aug 29 2023 Simone Caronni <negativo17@gmail.com> - 1:3.6-7.20230824git59ff5e7b4840
 - Update to latest snapshot.

@@ -1,6 +1,6 @@
-diff -Naur multicoreware-x265_git-34532bda12a3.old/source/cmake/Findsvthevc.cmake multicoreware-x265_git-34532bda12a3/source/cmake/Findsvthevc.cmake
---- multicoreware-x265_git-34532bda12a3.old/source/cmake/Findsvthevc.cmake	2023-05-31 16:16:07.810665977 +0200
-+++ multicoreware-x265_git-34532bda12a3/source/cmake/Findsvthevc.cmake	2023-05-31 16:18:31.988869969 +0200
+diff -Naur multicoreware-x265_git-8ee01d45b05c.old/source/cmake/Findsvthevc.cmake multicoreware-x265_git-8ee01d45b05c/source/cmake/Findsvthevc.cmake
+--- multicoreware-x265_git-8ee01d45b05c.old/source/cmake/Findsvthevc.cmake	2023-09-17 04:57:20.000000000 +0200
++++ multicoreware-x265_git-8ee01d45b05c/source/cmake/Findsvthevc.cmake	2023-09-30 09:14:45.253754372 +0200
 @@ -38,13 +38,7 @@
          string(REGEX MATCH "SVT_VERSION_PATCHLEVEL  \\(([0-9]*)\\)" _ ${version})
          set(SVT_VERSION_PATCHLEVEL ${CMAKE_MATCH_1})
@@ -16,10 +16,10 @@ diff -Naur multicoreware-x265_git-34532bda12a3.old/source/cmake/Findsvthevc.cmak
      endif()
  endif()
  
-diff -Naur multicoreware-x265_git-34532bda12a3.old/source/CMakeLists.txt multicoreware-x265_git-34532bda12a3/source/CMakeLists.txt
---- multicoreware-x265_git-34532bda12a3.old/source/CMakeLists.txt	2023-05-31 16:18:14.387600907 +0200
-+++ multicoreware-x265_git-34532bda12a3/source/CMakeLists.txt	2023-05-31 16:18:31.988869969 +0200
-@@ -623,12 +623,6 @@
+diff -Naur multicoreware-x265_git-8ee01d45b05c.old/source/CMakeLists.txt multicoreware-x265_git-8ee01d45b05c/source/CMakeLists.txt
+--- multicoreware-x265_git-8ee01d45b05c.old/source/CMakeLists.txt	2023-09-30 09:15:37.586698669 +0200
++++ multicoreware-x265_git-8ee01d45b05c/source/CMakeLists.txt	2023-09-30 09:14:45.308755365 +0200
+@@ -672,12 +672,6 @@
          ARCHIVE DESTINATION ${LIB_INSTALL_DIR})
  endif()
  
@@ -32,9 +32,9 @@ diff -Naur multicoreware-x265_git-34532bda12a3.old/source/CMakeLists.txt multico
  install(FILES x265.h "${PROJECT_BINARY_DIR}/x265_config.h" DESTINATION include)
  if((WIN32 AND ENABLE_CLI) OR (WIN32 AND ENABLE_SHARED))
      if(MSVC_IDE)
-diff -Naur multicoreware-x265_git-34532bda12a3.old/source/encoder/api.cpp multicoreware-x265_git-34532bda12a3/source/encoder/api.cpp
---- multicoreware-x265_git-34532bda12a3.old/source/encoder/api.cpp	2023-05-31 16:18:14.419601396 +0200
-+++ multicoreware-x265_git-34532bda12a3/source/encoder/api.cpp	2023-05-31 16:18:31.989869984 +0200
+diff -Naur multicoreware-x265_git-8ee01d45b05c.old/source/encoder/api.cpp multicoreware-x265_git-8ee01d45b05c/source/encoder/api.cpp
+--- multicoreware-x265_git-8ee01d45b05c.old/source/encoder/api.cpp	2023-09-30 09:15:37.639699625 +0200
++++ multicoreware-x265_git-8ee01d45b05c/source/encoder/api.cpp	2023-09-30 09:14:45.308755365 +0200
 @@ -449,14 +449,18 @@
  
                  if (pic_in->rpu.payloadSize)

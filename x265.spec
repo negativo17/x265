@@ -1,5 +1,5 @@
-%global commit0 59ff5e7b4840b3aac91fbc514a4c86a8722ce5e1
-%global date 20230824
+%global commit0 8ee01d45b05cdbc9da89b884815257807a514bc8
+%global date 20230917
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:12})
 #global tag %{version}
 
@@ -8,7 +8,7 @@
 Summary:    H.265/HEVC encoder
 Name:       x265
 Version:    3.6
-Release:    7%{!?tag:.%{date}git%{shortcommit0}}%{?dist}
+Release:    8%{!?tag:.%{date}git%{shortcommit0}}%{?dist}
 Epoch:      1
 URL:        http://x265.org/
 # source/Lib/TLibCommon - BSD
@@ -24,8 +24,10 @@ Source0:    https://bitbucket.org/multicoreware/%{name}_git/get/%{commit0}.tar.g
 Patch0:     %{name}-detect_cpu_armhfp.patch
 Patch1:     %{name}-high-bit-depth-soname.patch
 Patch2:     %{name}-svt-hevc.patch
-Patch3:     https://raw.githubusercontent.com/HandBrake/HandBrake/master/contrib/x265/A03-sei-length-crash-fix.patch
-Patch4:     https://raw.githubusercontent.com/HandBrake/HandBrake/master/contrib/x265/A04-ambient-viewing-enviroment-sei.patch
+# https://github.com/HandBrake/HandBrake/blob/master/contrib/x265/A03-sei-length-crash-fix.patch
+Patch3:     %{name}-sei-length-crash-fix.patch
+# https://github.com/HandBrake/HandBrake/blob/master/contrib/x265/A04-ambient-viewing-enviroment-sei.patch
+Patch4:     %{name}-ambient-viewing-enviroment-sei.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -154,6 +156,9 @@ find %{buildroot} -name "*.a" -delete
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Sat Sep 30 2023 Simone Caronni <negativo17@gmail.com> - 1:3.6-8.20230917git8ee01d45b05c
+- Update to latest snapshot.
+
 * Tue Aug 29 2023 Simone Caronni <negativo17@gmail.com> - 1:3.6-7.20230824git59ff5e7b4840
 - Update to latest snapshot.
 

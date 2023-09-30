@@ -1,7 +1,7 @@
-diff -Naur multicoreware-x265_git-34532bda12a3.old/source/CMakeLists.txt multicoreware-x265_git-34532bda12a3/source/CMakeLists.txt
---- multicoreware-x265_git-34532bda12a3.old/source/CMakeLists.txt	2023-05-31 16:17:39.525067979 +0200
-+++ multicoreware-x265_git-34532bda12a3/source/CMakeLists.txt	2023-05-31 16:16:47.467272196 +0200
-@@ -687,7 +687,15 @@
+diff -Naur multicoreware-x265_git-8ee01d45b05c.old/source/CMakeLists.txt multicoreware-x265_git-8ee01d45b05c/source/CMakeLists.txt
+--- multicoreware-x265_git-8ee01d45b05c.old/source/CMakeLists.txt	2023-09-30 09:13:19.163201633 +0200
++++ multicoreware-x265_git-8ee01d45b05c/source/CMakeLists.txt	2023-09-30 09:13:59.000919783 +0200
+@@ -736,7 +736,15 @@
      if(MSVC)
          set_target_properties(x265-shared PROPERTIES OUTPUT_NAME libx265)
      else()
@@ -18,9 +18,9 @@ diff -Naur multicoreware-x265_git-34532bda12a3.old/source/CMakeLists.txt multico
      endif()
      if(UNIX)
          set_target_properties(x265-shared PROPERTIES VERSION ${X265_BUILD})
-diff -Naur multicoreware-x265_git-34532bda12a3.old/source/encoder/api.cpp multicoreware-x265_git-34532bda12a3/source/encoder/api.cpp
---- multicoreware-x265_git-34532bda12a3.old/source/encoder/api.cpp	2023-05-31 16:16:07.866666833 +0200
-+++ multicoreware-x265_git-34532bda12a3/source/encoder/api.cpp	2023-05-31 16:16:47.468272212 +0200
+diff -Naur multicoreware-x265_git-8ee01d45b05c.old/source/encoder/api.cpp multicoreware-x265_git-8ee01d45b05c/source/encoder/api.cpp
+--- multicoreware-x265_git-8ee01d45b05c.old/source/encoder/api.cpp	2023-09-30 09:13:19.189202101 +0200
++++ multicoreware-x265_git-8ee01d45b05c/source/encoder/api.cpp	2023-09-30 09:13:59.002919820 +0200
 @@ -1097,7 +1097,7 @@
  #define ext ".dylib"
  #else

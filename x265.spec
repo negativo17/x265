@@ -25,10 +25,11 @@ Patch0:     %{name}-detect_cpu_armhfp.patch
 Patch1:     %{name}-high-bit-depth-soname.patch
 Patch2:     %{name}-svt-hevc.patch
 Patch3:     %{name}-vmaf.patch
+Patch4:     %{name}-fix-aarch64-build.patch
 # https://github.com/HandBrake/HandBrake/blob/master/contrib/x265/A03-sei-length-crash-fix.patch
-Patch4:     %{name}-sei-length-crash-fix.patch
+Patch5:     %{name}-sei-length-crash-fix.patch
 # https://github.com/HandBrake/HandBrake/blob/master/contrib/x265/A04-ambient-viewing-enviroment-sei.patch
-Patch5:     %{name}-ambient-viewing-enviroment-sei.patch
+Patch6:     %{name}-ambient-viewing-enviroment-sei.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++

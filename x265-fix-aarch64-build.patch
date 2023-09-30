@@ -1,0 +1,11 @@
+diff -Naur multicoreware-x265_git-8ee01d45b05c.old/source/common/aarch64/asm-primitives.cpp multicoreware-x265_git-8ee01d45b05c/source/common/aarch64/asm-primitives.cpp
+--- multicoreware-x265_git-8ee01d45b05c.old/source/common/aarch64/asm-primitives.cpp	2023-09-17 04:57:20.000000000 +0200
++++ multicoreware-x265_git-8ee01d45b05c/source/common/aarch64/asm-primitives.cpp	2023-09-30 14:38:17.038096385 +0200
+@@ -31,6 +31,7 @@
+ 
+ extern "C" {
+ #include "fun-decls.h"
++#include "../arm/ipfilter8.h"
+ }
+ 
+ #define ALL_LUMA_TU_TYPED(prim, fncdef, fname, cpu) \

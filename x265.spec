@@ -1,14 +1,14 @@
 %global commit0 ce8642f22123f0b8cf105c88fc1e8af9888bd345
 %global date 20231213
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:12})
-#global tag %{version}
+%global tag %{version}
 
-%global api_version 208
+%global api_version 209
 
 Summary:    H.265/HEVC encoder
 Name:       x265
 Version:    3.6
-Release:    9%{!?tag:.%{date}git%{shortcommit0}}%{?dist}
+Release:    10%{!?tag:.%{date}git%{shortcommit0}}%{?dist}
 Epoch:      1
 URL:        http://x265.org/
 # source/Lib/TLibCommon - BSD
@@ -161,6 +161,9 @@ find %{buildroot} -name "*.a" -delete
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Fri Apr 12 2024 Simone Caronni <negativo17@gmail.com> - 1:3.6-10
+- Update to 3.6 final.
+
 * Wed Jan 10 2024 Simone Caronni <negativo17@gmail.com> - 1:3.6-9.20231213gitce8642f22123
 - Update to latest snapshot.
 

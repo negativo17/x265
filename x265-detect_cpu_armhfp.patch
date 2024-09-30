@@ -1,6 +1,6 @@
-diff -Naur multicoreware-x265_git-931178347b3f.old/source/test/testharness.h multicoreware-x265_git-931178347b3f/source/test/testharness.h
---- multicoreware-x265_git-931178347b3f.old/source/test/testharness.h	2022-09-16 09:56:11.570907287 +0200
-+++ multicoreware-x265_git-931178347b3f/source/test/testharness.h	2022-09-16 10:01:25.565913942 +0200
+diff -Naur x265_4.0.old/source/test/testharness.h x265_4.0/source/test/testharness.h
+--- x265_4.0.old/source/test/testharness.h	2024-10-01 10:53:48.878239764 +0200
++++ x265_4.0/source/test/testharness.h	2024-10-01 10:53:48.881239788 +0200
 @@ -71,7 +71,7 @@
  #include <intrin.h>
  #elif (!defined(__APPLE__) && (defined (__GNUC__) && (defined(__x86_64__) || defined(__i386__))))

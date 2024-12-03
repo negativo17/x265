@@ -3,7 +3,7 @@
 Summary:    H.265/HEVC encoder
 Name:       x265
 Version:    4.1
-Release:    1%{?dist}
+Release:    2%{?dist}
 Epoch:      1
 URL:        http://x265.org/
 # source/Lib/TLibCommon - BSD
@@ -14,20 +14,16 @@ License:    GPLv2+ and BSD
 Source0:    https://bitbucket.org/multicoreware/%{name}_git/downloads/%{name}_%{version}.tar.gz
 Patch0:     %{name}-detect_cpu_armhfp.patch
 Patch1:     %{name}-high-bit-depth-soname.patch
-Patch2:     %{name}-svt-hevc.patch
-Patch3:     %{name}-vmaf.patch
-Patch4:     %{name}-fix-aarch64-build.patch
-# https://github.com/HandBrake/HandBrake/blob/master/contrib/x265/A03-sei-length-crash-fix.patch
-Patch5:     %{name}-sei-length-crash-fix.patch
-# https://github.com/HandBrake/HandBrake/blob/master/contrib/x265/A04-ambient-viewing-enviroment-sei.patch
-Patch6:     %{name}-ambient-viewing-enviroment-sei.patch
+Patch2:     %{name}-vmaf.patch
+Patch3:     %{name}-fix-aarch64-build.patch
+# https://github.com/HandBrake/HandBrake/tree/fa9154a20f3f64fdc183a097e6b63f7fd4bc6cab
+Patch4:     %{name}-HandBrake.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
 BuildRequires:  nasm >= 2.13
 BuildRequires:  numactl-devel
 %ifarch x86_64
-BuildRequires:  svt-hevc-devel
 BuildRequires:  libvmaf-devel
 %endif
 
@@ -91,8 +87,6 @@ build() {
   -DGIT_ARCHETYPE="1" \
 %ifarch x86_64
   -DENABLE_LIBVMAF=ON \
-  -DENABLE_SVT_HEVC=ON \
-  -DSVT_HEVC_INCLUDE_DIR=%{_includedir}/svt-hevc \
   -DVMAF_INCLUDE_DIR=%{_includedir}/libvmaf \
 %endif
   $* \
@@ -151,6 +145,9 @@ find %{buildroot} -name "*.a" -delete
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Tue Dec 03 2024 Simone Caronni <negativo17@gmail.com> - 1:4.1-2
+- Update patches, drop SVT-HEVC support.
+
 * Tue Dec 03 2024 Simone Caronni <negativo17@gmail.com> - 1:4.1-1
 - Update to 4.1.
 

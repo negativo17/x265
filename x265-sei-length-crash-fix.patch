@@ -1,16 +1,16 @@
-diff -Naur x265_4.0.old/source/encoder/encoder.cpp x265_4.0/source/encoder/encoder.cpp
---- x265_4.0.old/source/encoder/encoder.cpp	2024-10-01 10:56:27.185476649 +0200
-+++ x265_4.0/source/encoder/encoder.cpp	2024-10-01 10:57:16.165859314 +0200
-@@ -1112,6 +1112,12 @@
-                 input = seiMsg;
+diff -Naur x265_4.1.old/source/encoder/encoder.cpp x265_4.1/source/encoder/encoder.cpp
+--- x265_4.1.old/source/encoder/encoder.cpp	2024-12-03 12:10:55.434249959 +0100
++++ x265_4.1/source/encoder/encoder.cpp	2024-12-03 12:10:55.564250736 +0100
+@@ -1102,6 +1102,12 @@
              else
                  input = pic_in->userSEI.payloads[i];
-+            
+ 
 +            if (frame->m_userSEI.payloads[i].payload && (frame->m_userSEI.payloads[i].payloadSize < input.payloadSize))
 +            {
 +                delete[] frame->m_userSEI.payloads[i].payload;
 +                frame->m_userSEI.payloads[i].payload = NULL;
 +            }
- 
++
              if (!frame->m_userSEI.payloads[i].payload)
                  frame->m_userSEI.payloads[i].payload = new uint8_t[input.payloadSize];
+             memcpy(frame->m_userSEI.payloads[i].payload, input.payload, input.payloadSize);

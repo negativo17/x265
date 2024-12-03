@@ -1,7 +1,7 @@
-diff -Naur x265_4.0.old/source/common/param.cpp x265_4.0/source/common/param.cpp
---- x265_4.0.old/source/common/param.cpp	2024-10-01 10:56:27.182476625 +0200
-+++ x265_4.0/source/common/param.cpp	2024-10-01 10:57:54.719160518 +0200
-@@ -380,6 +380,7 @@
+diff -Naur x265_4.1.old/source/common/param.cpp x265_4.1/source/common/param.cpp
+--- x265_4.1.old/source/common/param.cpp	2024-12-03 12:10:55.413249834 +0100
++++ x265_4.1/source/common/param.cpp	2024-12-03 12:10:55.583250849 +0100
+@@ -408,6 +408,7 @@
      param->preferredTransferCharacteristics = -1;
      param->pictureStructure = -1;
      param->bEmitCLL = 1;
@@ -9,15 +9,15 @@ diff -Naur x265_4.0.old/source/common/param.cpp x265_4.0/source/common/param.cpp
  
      param->bEnableFrameDuplication = 0;
      param->dupThreshold = 70;
-@@ -1929,6 +1930,7 @@
+@@ -1963,6 +1964,7 @@
                       || param->bEmitIDRRecoverySEI
                     || !!param->interlaceMode
                       || param->preferredTransferCharacteristics > 1
 +                     || param->bEmitAmbientViewingEnvironment
-                      || param->toneMapFile
-                      || param->naluFile);
+                      || strlen(param->toneMapFile)
+                      || strlen(param->naluFile));
  
-@@ -2850,6 +2852,10 @@
+@@ -2910,6 +2912,10 @@
      dst->bEmitCLL = src->bEmitCLL;
      dst->maxCLL = src->maxCLL;
      dst->maxFALL = src->maxFALL;
@@ -28,10 +28,10 @@ diff -Naur x265_4.0.old/source/common/param.cpp x265_4.0/source/common/param.cpp
      dst->log2MaxPocLsb = src->log2MaxPocLsb;
      dst->bEmitVUIHRDInfo = src->bEmitVUIHRDInfo;
      dst->bEmitVUITimingInfo = src->bEmitVUITimingInfo;
-diff -Naur x265_4.0.old/source/encoder/encoder.cpp x265_4.0/source/encoder/encoder.cpp
---- x265_4.0.old/source/encoder/encoder.cpp	2024-10-01 10:57:46.325094937 +0200
-+++ x265_4.0/source/encoder/encoder.cpp	2024-10-01 10:57:54.719160518 +0200
-@@ -3429,6 +3429,15 @@
+diff -Naur x265_4.1.old/source/encoder/encoder.cpp x265_4.1/source/encoder/encoder.cpp
+--- x265_4.1.old/source/encoder/encoder.cpp	2024-12-03 12:10:55.581250837 +0100
++++ x265_4.1/source/encoder/encoder.cpp	2024-12-03 12:10:55.584250855 +0100
+@@ -3367,6 +3367,15 @@
          }
      }
  
@@ -47,10 +47,10 @@ diff -Naur x265_4.0.old/source/encoder/encoder.cpp x265_4.0/source/encoder/encod
      if (m_param->bEmitInfoSEI)
      {
          char *opts = x265_param2string(m_param, m_sps.conformanceWindow.rightOffset, m_sps.conformanceWindow.bottomOffset);
-diff -Naur x265_4.0.old/source/encoder/sei.h x265_4.0/source/encoder/sei.h
---- x265_4.0.old/source/encoder/sei.h	2024-10-01 10:56:27.186476657 +0200
-+++ x265_4.0/source/encoder/sei.h	2024-10-01 10:57:54.720160525 +0200
-@@ -464,6 +464,25 @@
+diff -Naur x265_4.1.old/source/encoder/sei.h x265_4.1/source/encoder/sei.h
+--- x265_4.1.old/source/encoder/sei.h	2024-12-03 12:10:55.438249983 +0100
++++ x265_4.1/source/encoder/sei.h	2024-12-03 12:10:55.584250855 +0100
+@@ -638,6 +638,25 @@
      }
  };
  
@@ -76,10 +76,10 @@ diff -Naur x265_4.0.old/source/encoder/sei.h x265_4.0/source/encoder/sei.h
  class SEIDecodedPictureHash : public SEI
  {
  public:
-diff -Naur x265_4.0.old/source/x265.h x265_4.0/source/x265.h
---- x265_4.0.old/source/x265.h	2024-10-01 10:56:27.187476665 +0200
-+++ x265_4.0/source/x265.h	2024-10-01 10:58:24.030389526 +0200
-@@ -371,6 +371,7 @@
+diff -Naur x265_4.1.old/source/x265.h x265_4.1/source/x265.h
+--- x265_4.1.old/source/x265.h	2024-12-03 12:10:55.443250013 +0100
++++ x265_4.1/source/x265.h	2024-12-03 12:10:55.584250855 +0100
+@@ -376,6 +376,7 @@
      MASTERING_DISPLAY_INFO               = 137,
      CONTENT_LIGHT_LEVEL_INFO             = 144,
      ALTERNATIVE_TRANSFER_CHARACTERISTICS = 147,
@@ -87,7 +87,7 @@ diff -Naur x265_4.0.old/source/x265.h x265_4.0/source/x265.h
      ALPHA_CHANNEL_INFO                   = 165,
      THREE_DIMENSIONAL_REFERENCE_DISPLAYS_INFO = 176,
      MULTIVIEW_SCENE_INFO                 = 178,
-@@ -1956,6 +1957,11 @@
+@@ -1962,6 +1963,11 @@
       * value to that value. */
      uint16_t maxLuma;
  
@@ -99,7 +99,7 @@ diff -Naur x265_4.0.old/source/x265.h x265_4.0/source/x265.h
      /* Maximum of the picture order count */
      int log2MaxPocLsb;
  
-@@ -2167,6 +2173,9 @@
+@@ -2173,6 +2179,9 @@
      /*Emit content light level info SEI*/
      int         bEmitCLL;
  

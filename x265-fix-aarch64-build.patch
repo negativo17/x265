@@ -1,6 +1,6 @@
-diff -Naur x265_4.0.old/source/common/aarch64/asm-primitives.cpp x265_4.0/source/common/aarch64/asm-primitives.cpp
---- x265_4.0.old/source/common/aarch64/asm-primitives.cpp	2024-10-01 10:53:48.838239452 +0200
-+++ x265_4.0/source/common/aarch64/asm-primitives.cpp	2024-10-01 10:53:48.989240632 +0200
+diff -Naur x265_4.1.old/source/common/aarch64/asm-primitives.cpp x265_4.1/source/common/aarch64/asm-primitives.cpp
+--- x265_4.1.old/source/common/aarch64/asm-primitives.cpp	2024-12-03 12:10:55.403249774 +0100
++++ x265_4.1/source/common/aarch64/asm-primitives.cpp	2024-12-03 12:10:55.545250622 +0100
 @@ -31,6 +31,7 @@
  
  extern "C" {

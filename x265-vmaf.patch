@@ -1,7 +1,7 @@
-diff -Naur x265_4.0.old/source/CMakeLists.txt x265_4.0/source/CMakeLists.txt
---- x265_4.0.old/source/CMakeLists.txt	2024-10-01 10:53:48.967240460 +0200
-+++ x265_4.0/source/CMakeLists.txt	2024-10-01 10:53:48.969240475 +0200
-@@ -134,6 +134,7 @@
+diff -Naur x265_4.1.old/source/CMakeLists.txt x265_4.1/source/CMakeLists.txt
+--- x265_4.1.old/source/CMakeLists.txt	2024-12-03 12:10:55.526250509 +0100
++++ x265_4.1/source/CMakeLists.txt	2024-12-03 12:10:55.527250515 +0100
+@@ -151,6 +151,7 @@
      option(ENABLE_LIBVMAF "Enable VMAF" OFF)
      if(ENABLE_LIBVMAF)
          add_definitions(-DENABLE_LIBVMAF)
@@ -9,7 +9,7 @@ diff -Naur x265_4.0.old/source/CMakeLists.txt x265_4.0/source/CMakeLists.txt
      endif()
  endif(UNIX)
  
-@@ -825,10 +826,13 @@
+@@ -884,10 +885,13 @@
      if(EXTRA_LIB)
          target_link_libraries(x265-shared ${EXTRA_LIB})
      endif()

@@ -1,6 +1,6 @@
-diff -Naur x265_4.0.old/source/test/testharness.h x265_4.0/source/test/testharness.h
---- x265_4.0.old/source/test/testharness.h	2024-10-01 10:53:48.878239764 +0200
-+++ x265_4.0/source/test/testharness.h	2024-10-01 10:53:48.881239788 +0200
+diff -Naur x265_4.1.old/source/test/testharness.h x265_4.1/source/test/testharness.h
+--- x265_4.1.old/source/test/testharness.h	2024-12-03 12:10:55.442250007 +0100
++++ x265_4.1/source/test/testharness.h	2024-12-03 12:10:55.445250025 +0100
 @@ -71,7 +71,7 @@
  #include <intrin.h>
  #elif (!defined(__APPLE__) && (defined (__GNUC__) && (defined(__x86_64__) || defined(__i386__))))

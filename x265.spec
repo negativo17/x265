@@ -1,8 +1,8 @@
-%global api_version 212
+%global api_version 215
 
 Summary:    H.265/HEVC encoder
 Name:       x265
-Version:    4.0
+Version:    4.1
 Release:    1%{?dist}
 Epoch:      1
 URL:        http://x265.org/
@@ -151,6 +151,9 @@ find %{buildroot} -name "*.a" -delete
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Tue Dec 03 2024 Simone Caronni <negativo17@gmail.com> - 1:4.1-1
+- Update to 4.1.
+
 * Mon Sep 30 2024 Simone Caronni <negativo17@gmail.com> - 1:4.0-1
 - Update to 4.0.
 - Trim changelog.

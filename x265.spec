@@ -3,7 +3,7 @@
 Summary:    H.265/HEVC encoder
 Name:       x265
 Version:    4.1
-Release:    2%{?dist}
+Release:    3%{?dist}
 Epoch:      1
 URL:        http://x265.org/
 # source/Lib/TLibCommon - BSD
@@ -16,8 +16,9 @@ Patch0:     %{name}-detect_cpu_armhfp.patch
 Patch1:     %{name}-high-bit-depth-soname.patch
 Patch2:     %{name}-vmaf.patch
 Patch3:     %{name}-fix-aarch64-build.patch
-# https://github.com/HandBrake/HandBrake/tree/fa9154a20f3f64fdc183a097e6b63f7fd4bc6cab
-Patch4:     %{name}-HandBrake.patch
+Patch4:     %{name}-gcc15.patch
+# https://github.com/HandBrake/HandBrake/tree/e117cfe7fca37abeec59ea4201e5d93ed7477746
+Patch5:     %{name}-HandBrake.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -145,6 +146,9 @@ find %{buildroot} -name "*.a" -delete
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Sat Mar 15 2025 Simone Caronni <negativo17@gmail.com> - 1:4.1-3
+- Fix build on Fedora 42.
+
 * Tue Dec 03 2024 Simone Caronni <negativo17@gmail.com> - 1:4.1-2
 - Update patches, drop SVT-HEVC support.
 

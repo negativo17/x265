@@ -3,7 +3,7 @@
 Summary:    H.265/HEVC encoder
 Name:       x265
 Version:    4.1
-Release:    3%{?dist}
+Release:    4%{?dist}
 Epoch:      1
 URL:        http://x265.org/
 # source/Lib/TLibCommon - BSD
@@ -12,13 +12,15 @@ URL:        http://x265.org/
 License:    GPLv2+ and BSD
 
 Source0:    https://bitbucket.org/multicoreware/%{name}_git/downloads/%{name}_%{version}.tar.gz
-Patch0:     %{name}-detect_cpu_armhfp.patch
-Patch1:     %{name}-high-bit-depth-soname.patch
-Patch2:     %{name}-vmaf.patch
-Patch3:     %{name}-fix-aarch64-build.patch
-Patch4:     %{name}-gcc15.patch
-# https://github.com/HandBrake/HandBrake/tree/e117cfe7fca37abeec59ea4201e5d93ed7477746
-Patch5:     %{name}-HandBrake.patch
+Patch0:     %{name}-high-bit-depth-soname.patch
+Patch1:     %{name}-vmaf.patch
+Patch2:     %{name}-fix-aarch64-build.patch
+Patch3:     %{name}-gcc15.patch
+# https://github.com/HandBrake/HandBrake/tree/8902805364f00e0d420c4d4b33053a31d27045ab
+# Except:
+# contrib/x265/A06-Update-version-strings.patch
+# contrib/x265/A08-Fix-inconsistent-bitrate-in-second-pass.patch
+Patch4:     %{name}-HandBrake.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -146,6 +148,9 @@ find %{buildroot} -name "*.a" -delete
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Tue Sep 09 2025 Simone Caronni <negativo17@gmail.com> - 1:4.1-4
+- Update HandBrake patches to 1.10.2.
+
 * Sat Mar 15 2025 Simone Caronni <negativo17@gmail.com> - 1:4.1-3
 - Fix build on Fedora 42.
 

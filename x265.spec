@@ -3,7 +3,7 @@
 Summary:    H.265/HEVC encoder
 Name:       x265
 Version:    4.1
-Release:    4%{?dist}
+Release:    5%{?dist}
 Epoch:      1
 URL:        http://x265.org/
 # source/Lib/TLibCommon - BSD
@@ -97,6 +97,7 @@ build() {
 %cmake_build
 }
 
+%ifnarch %{ix86}
 # 10/12 bit libraries are supported only on 64 bit
 mkdir 12bit; pushd 12bit
   build \
@@ -110,6 +111,7 @@ mkdir 10bit; pushd 10bit
     -DENABLE_CLI=OFF \
     -DHIGH_BIT_DEPTH=ON
 popd
+%endif
 
 # 8 bit + dynamicHDR CLI
 # TestBench dlopens the appropriate x265 library
@@ -121,13 +123,24 @@ popd
 
 %install
 for i in 8 10 12; do
-  pushd ${i}bit
-    %cmake_install
-    rm -f %{buildroot}%{_libdir}/libx265_main${i}.so
-  popd
+  if [ -d ${i}bit ]; then
+    pushd ${i}bit
+      %cmake_install
+      rm -f %{buildroot}%{_libdir}/libx265_main${i}.so
+    popd
+  fi
 done
 
 find %{buildroot} -name "*.a" -delete
+
+%check
+for i in 8 10 12; do
+  if [ -d ${i}bit ]; then
+    pushd ${i}bit
+      test/TestBench || :
+    popd
+  fi
+done
 
 %files
 %{_bindir}/%{name}
@@ -136,8 +149,10 @@ find %{buildroot} -name "*.a" -delete
 %license COPYING
 %{_libdir}/libhdr10plus.so
 %{_libdir}/lib%{name}.so.%{api_version}
+%ifnarch %{ix86}
 %{_libdir}/lib%{name}_main10.so.%{api_version}
 %{_libdir}/lib%{name}_main12.so.%{api_version}
+%endif
 
 %files devel
 %doc doc/*
@@ -148,6 +163,10 @@ find %{buildroot} -name "*.a" -delete
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Mon Nov 03 2025 Simone Caronni <negativo17@gmail.com> - 1:4.1-5
+- Fix build on i686.
+- Add check section.
+
 * Tue Sep 09 2025 Simone Caronni <negativo17@gmail.com> - 1:4.1-4
 - Update HandBrake patches to 1.10.2.
 

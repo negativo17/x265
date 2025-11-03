@@ -1,14 +1,9 @@
-%global commit0 ce8642f22123f0b8cf105c88fc1e8af9888bd345
-%global date 20231213
-%global shortcommit0 %(c=%{commit0}; echo ${c:0:12})
-%global tag %{version}
-
 %global api_version 209
 
 Summary:    H.265/HEVC encoder
 Name:       x265
 Version:    3.6
-Release:    10%{!?tag:.%{date}git%{shortcommit0}}%{?dist}
+Release:    11%{?dist}
 Epoch:      1
 URL:        http://x265.org/
 # source/Lib/TLibCommon - BSD
@@ -16,11 +11,7 @@ URL:        http://x265.org/
 # everything else - GPLv2+
 License:    GPLv2+ and BSD
 
-%if 0%{?tag:1}
 Source0:    https://bitbucket.org/multicoreware/%{name}_git/downloads/%{name}_%{version}.tar.gz
-%else
-Source0:    https://bitbucket.org/multicoreware/%{name}_git/get/%{commit0}.tar.gz#/%{name}-%{shortcommit0}.tar.gz
-%endif
 Patch0:     %{name}-detect_cpu_armhfp.patch
 Patch1:     %{name}-high-bit-depth-soname.patch
 Patch2:     %{name}-svt-hevc.patch
@@ -69,11 +60,7 @@ performance on a wide variety of hardware platforms.
 This package contains the shared library development files.
 
 %prep
-%if 0%{?tag:1}
 %autosetup -p1 -n %{name}_%{version}
-%else
-%autosetup -p1 -n multicoreware-%{name}_git-%{shortcommit0}
-%endif
 
 sed -i -e 's|libdir=${exec_prefix}/@LIB_INSTALL_DIR@|libdir=@LIB_INSTALL_DIR@|g' source/x265.pc.in
 
@@ -110,6 +97,7 @@ build() {
 %cmake_build
 }
 
+%ifnarch %{ix86}
 # 10/12 bit libraries are supported only on 64 bit
 mkdir 12bit; pushd 12bit
   build \
@@ -123,6 +111,7 @@ mkdir 10bit; pushd 10bit
     -DENABLE_CLI=OFF \
     -DHIGH_BIT_DEPTH=ON
 popd
+%endif
 
 # 8 bit + dynamicHDR CLI
 # TestBench dlopens the appropriate x265 library
@@ -134,13 +123,24 @@ popd
 
 %install
 for i in 8 10 12; do
-  pushd ${i}bit
-    %cmake_install
-    rm -f %{buildroot}%{_libdir}/libx265_main${i}.so
-  popd
+  if [ -d ${i}bit ]; then
+    pushd ${i}bit
+      %cmake_install
+      rm -f %{buildroot}%{_libdir}/libx265_main${i}.so
+    popd
+  fi
 done
 
 find %{buildroot} -name "*.a" -delete
+
+%check
+for i in 8 10 12; do
+  if [ -d ${i}bit ]; then
+    pushd ${i}bit
+      test/TestBench || :
+    popd
+  fi
+done
 
 %files
 %{_bindir}/%{name}
@@ -149,8 +149,10 @@ find %{buildroot} -name "*.a" -delete
 %license COPYING
 %{_libdir}/libhdr10plus.so
 %{_libdir}/lib%{name}.so.%{api_version}
+%ifnarch %{ix86}
 %{_libdir}/lib%{name}_main10.so.%{api_version}
 %{_libdir}/lib%{name}_main12.so.%{api_version}
+%endif
 
 %files devel
 %doc doc/*
@@ -161,6 +163,11 @@ find %{buildroot} -name "*.a" -delete
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Mon Nov 03 2025 Simone Caronni <negativo17@gmail.com> - 1:3.6-11
+- Fix build on i686.
+- Add check section
+- Clean up SPEC file.
+
 * Fri Apr 12 2024 Simone Caronni <negativo17@gmail.com> - 1:3.6-10
 - Update to 3.6 final.
 
@@ -189,42 +196,3 @@ find %{buildroot} -name "*.a" -delete
 * Tue Jan 03 2023 Simone Caronni <negativo17@gmail.com> - 1:3.6-2.20221229git82225f9a56f9
 - Update to latest snapshot.
 - Enable HDR10+ on all combinations (#2).
-
-* Fri Sep 16 2022 Simone Caronni <negativo17@gmail.com> - 1:3.6-1.20220912git931178347b3f
-- Update to latest 3.6 snapshot.
-- Drop arm patch.
-
-* Fri Sep 16 2022 Simone Caronni <negativo17@gmail.com> - 1:3.5-2
-- Clean up SPEC file, split per branch.
-
-* Wed Mar 24 2021 Simone Caronni <negativo17@gmail.com> - 1:3.5-1
-- Update to 3.5.
-- Enable SVT-HEVC support on x86_64.
-- Explicitly enable assembler support.
-- Improve SPEC file.
-- Remove tests as they are not really tests but benchmarks.
-
-* Fri Sep 11 2020 Simone Caronni <negativo17@gmail.com> - 1:3.4-2
-- Enable HDR10+.
-- Trim changelog.
-
-* Tue Jun 16 2020 Simone Caronni <negativo17@gmail.com> - 1:3.4-1
-- Update to 3.4.
-
-* Sun Mar 15 2020 Simone Caronni <negativo17@gmail.com> - 1:3.3-1
-- Update to 3.3.
-
-* Wed Nov 27 2019 Simone Caronni <negativo17@gmail.com> - 1:3.2.1-1
-- Update to 3.2.1.
-
-* Sun Oct 20 2019 Simone Caronni <negativo17@gmail.com> - 1:3.2-1
-- Update to 3.2.
-
-* Tue Sep 03 2019 Simone Caronni <negativo17@gmail.com> - 1:3.1.2-1
-- Update to 3.1.2.
-
-* Sat Jul 06 2019 Simone Caronni <negativo17@gmail.com> - 1:3.1-1
-- Update to 3.1.
-
-* Tue Feb 26 2019 Simone Caronni <negativo17@gmail.com> - 1:3.0-1
-- Update to 3.0.

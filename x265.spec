@@ -1,9 +1,13 @@
 %global api_version 215
 
+%ifarch %{ix86}
+%global _pkg_extra_ldflags "-Wl,-z,notext"
+%endif
+
 Summary:    H.265/HEVC encoder
 Name:       x265
 Version:    4.1
-Release:    5%{?dist}
+Release:    6%{?dist}
 Epoch:      1
 URL:        http://x265.org/
 # source/Lib/TLibCommon - BSD
@@ -21,6 +25,9 @@ Patch3:     %{name}-gcc15.patch
 # contrib/x265/A06-Update-version-strings.patch
 # contrib/x265/A08-Fix-inconsistent-bitrate-in-second-pass.patch
 Patch4:     %{name}-HandBrake.patch
+# https://bitbucket.org/multicoreware/x265_git/commits/51ae8e922bcc4586ad4710812072289af91492a8
+# https://bitbucket.org/multicoreware/x265_git/commits/78e5ac35c13c5cbccc5933083edceb0d3eaeaa21
+Patch5:	    %{name}-cmake.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -118,7 +125,7 @@ popd
 mkdir 8bit; pushd 8bit
   build \
     -DENABLE_CLI=ON \
-    -DENABLE_TESTS=ON \
+    -DENABLE_TESTS=ON
 popd
 
 %install
@@ -163,6 +170,9 @@ done
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Wed Feb 11 2026 Simone Caronni <negativo17@gmail.com> - 1:4.1-6
+- Fix build on Fedora 44+.
+
 * Mon Nov 03 2025 Simone Caronni <negativo17@gmail.com> - 1:4.1-5
 - Fix build on i686.
 - Add check section.

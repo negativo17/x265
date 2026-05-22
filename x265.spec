@@ -1,4 +1,4 @@
-%global api_version 215
+%global api_version 216
 
 %ifarch %{ix86}
 %global _pkg_extra_ldflags "-Wl,-z,notext"
@@ -6,8 +6,8 @@
 
 Summary:    H.265/HEVC encoder
 Name:       x265
-Version:    4.1
-Release:    6%{?dist}
+Version:    4.2
+Release:    1%{?dist}
 Epoch:      1
 URL:        http://x265.org/
 # source/Lib/TLibCommon - BSD
@@ -20,14 +20,11 @@ Patch0:     %{name}-high-bit-depth-soname.patch
 Patch1:     %{name}-vmaf.patch
 Patch2:     %{name}-fix-aarch64-build.patch
 Patch3:     %{name}-gcc15.patch
-# https://github.com/HandBrake/HandBrake/tree/8902805364f00e0d420c4d4b33053a31d27045ab
+# https://github.com/HandBrake/HandBrake/tree/2f464fcf93d411ebdd969b39d67739ed658c5e58
 # Except:
 # contrib/x265/A06-Update-version-strings.patch
 # contrib/x265/A08-Fix-inconsistent-bitrate-in-second-pass.patch
 Patch4:     %{name}-HandBrake.patch
-# https://bitbucket.org/multicoreware/x265_git/commits/51ae8e922bcc4586ad4710812072289af91492a8
-# https://bitbucket.org/multicoreware/x265_git/commits/78e5ac35c13c5cbccc5933083edceb0d3eaeaa21
-Patch5:	    %{name}-cmake.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -170,6 +167,11 @@ done
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Fri May 22 2026 Simone Caronni <negativo17@gmail.com> - 1:4.2-1
+- Update to 4.2.
+- Update HandBrake patches.
+- Trim changelog.
+
 * Wed Feb 11 2026 Simone Caronni <negativo17@gmail.com> - 1:4.1-6
 - Fix build on Fedora 44+.
 
@@ -199,33 +201,3 @@ done
 
 * Wed Jan 10 2024 Simone Caronni <negativo17@gmail.com> - 1:3.6-9.20231213gitce8642f22123
 - Update to latest snapshot.
-
-* Sat Sep 30 2023 Simone Caronni <negativo17@gmail.com> - 1:3.6-8.20230917git8ee01d45b05c
-- Update to latest snapshot.
-- Enable VMAF support.
-
-* Tue Aug 29 2023 Simone Caronni <negativo17@gmail.com> - 1:3.6-7.20230824git59ff5e7b4840
-- Update to latest snapshot.
-
-* Fri Jul 07 2023 Simone Caronni <negativo17@gmail.com> - 1:3.6-6.20230627git8f18e3ad3268
-- Update to latest snapshot to silence all NASM warnings.
-
-* Mon Jun 05 2023 Simone Caronni <negativo17@gmail.com> - 1:3.6-5.20230508git34532bda12a3
-- Add HandBrake patches.
-
-* Mon May 29 2023 Simone Caronni <negativo17@gmail.com> - 1:3.6-4.20230508git34532bda12a3
-- Update to latest snapshot.
-
-* Mon Feb 27 2023 Simone Caronni <negativo17@gmail.com> - 1:3.6-3.20230222git38cf1c379b5a
-- Update to latest snapshot.
-
-* Tue Jan 03 2023 Simone Caronni <negativo17@gmail.com> - 1:3.6-2.20221229git82225f9a56f9
-- Update to latest snapshot.
-- Enable HDR10+ on all combinations (#2).
-
-* Fri Sep 16 2022 Simone Caronni <negativo17@gmail.com> - 1:3.6-1.20220912git931178347b3f
-- Update to latest 3.6 snapshot.
-- Drop arm patch.
-
-* Fri Sep 16 2022 Simone Caronni <negativo17@gmail.com> - 1:3.5-2
-- Clean up SPEC file, split per branch.

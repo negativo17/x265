@@ -28,7 +28,9 @@ Patch4:     %{name}-HandBrake.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
+%ifnarch %{ix86}
 BuildRequires:  nasm >= 2.13
+%endif
 BuildRequires:  numactl-devel
 %ifarch x86_64
 BuildRequires:  libvmaf-devel
@@ -95,6 +97,9 @@ build() {
 %ifarch x86_64
   -DENABLE_LIBVMAF=ON \
   -DVMAF_INCLUDE_DIR=%{_includedir}/libvmaf \
+%endif
+%ifarch %{ix86}
+  -DENABLE_ASSEMBLY=OFF \
 %endif
   $* \
   ../source

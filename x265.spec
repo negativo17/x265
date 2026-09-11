@@ -6,7 +6,7 @@
 
 Summary:    H.265/HEVC encoder
 Name:       x265
-Version:    4.2
+Version:    4.3
 Release:    1%{?dist}
 Epoch:      1
 URL:        http://x265.org/
@@ -15,12 +15,12 @@ URL:        http://x265.org/
 # everything else - GPLv2+
 License:    GPLv2+ and BSD
 
-Source0:    https://bitbucket.org/multicoreware/%{name}_git/downloads/%{name}_%{version}.tar.gz
+Source0:    https://github.com/Multicorewareinc/%{name}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 Patch0:     %{name}-high-bit-depth-soname.patch
 Patch1:     %{name}-vmaf.patch
 Patch2:     %{name}-fix-aarch64-build.patch
 Patch3:     %{name}-gcc15.patch
-# https://github.com/HandBrake/HandBrake/tree/2f464fcf93d411ebdd969b39d67739ed658c5e58
+# https://github.com/HandBrake/HandBrake/tree/9991ce06aaa275c928509f82ec4e7aac0482279d
 # Except:
 # contrib/x265/A06-Update-version-strings.patch
 # contrib/x265/A08-Fix-inconsistent-bitrate-in-second-pass.patch
@@ -65,7 +65,7 @@ performance on a wide variety of hardware platforms.
 This package contains the shared library development files.
 
 %prep
-%autosetup -p1 -n %{name}_%{version}
+%autosetup -p1
 
 sed -i -e 's|libdir=${exec_prefix}/@LIB_INSTALL_DIR@|libdir=@LIB_INSTALL_DIR@|g' source/x265.pc.in
 
@@ -172,6 +172,10 @@ done
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Fri Sep 11 2026 Simone Caronni <negativo17@gmail.com> - 1:4.3-1
+- Update to 4.3.
+- Update tarball URL.
+
 * Fri May 22 2026 Simone Caronni <negativo17@gmail.com> - 1:4.2-1
 - Update to 4.2.
 - Update HandBrake patches.

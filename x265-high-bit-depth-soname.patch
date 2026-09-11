@@ -1,7 +1,7 @@
-diff -Naur x265_4.2.old/source/CMakeLists.txt x265_4.2/source/CMakeLists.txt
---- x265_4.2.old/source/CMakeLists.txt	2026-05-22 09:31:41.395284685 +0200
-+++ x265_4.2/source/CMakeLists.txt	2026-05-22 09:31:41.446248583 +0200
-@@ -1075,7 +1075,15 @@
+diff -Naur x265-4.3.old/source/CMakeLists.txt x265-4.3/source/CMakeLists.txt
+--- x265-4.3.old/source/CMakeLists.txt	2026-09-11 12:14:22.134195812 +0200
++++ x265-4.3/source/CMakeLists.txt	2026-09-11 12:14:22.194689596 +0200
+@@ -1158,7 +1158,15 @@
      if(MSVC)
          set_target_properties(x265-shared PROPERTIES OUTPUT_NAME libx265)
      else()
@@ -18,9 +18,9 @@ diff -Naur x265_4.2.old/source/CMakeLists.txt x265_4.2/source/CMakeLists.txt
      endif()
      if(UNIX)
          set_target_properties(x265-shared PROPERTIES VERSION ${X265_BUILD})
-diff -Naur x265_4.2.old/source/encoder/api.cpp x265_4.2/source/encoder/api.cpp
---- x265_4.2.old/source/encoder/api.cpp	2026-05-22 09:31:41.431540093 +0200
-+++ x265_4.2/source/encoder/api.cpp	2026-05-22 09:31:41.446517920 +0200
+diff -Naur x265-4.3.old/source/encoder/api.cpp x265-4.3/source/encoder/api.cpp
+--- x265-4.3.old/source/encoder/api.cpp	2026-09-11 12:14:22.178887593 +0200
++++ x265-4.3/source/encoder/api.cpp	2026-09-11 12:14:22.194986336 +0200
 @@ -1119,7 +1119,7 @@
  #define ext ".dylib"
  #else

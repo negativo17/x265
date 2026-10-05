@@ -7,7 +7,7 @@
 Summary:    H.265/HEVC encoder
 Name:       x265
 Version:    4.2
-Release:    1%{?dist}
+Release:    2%{?dist}
 Epoch:      1
 URL:        http://x265.org/
 # source/Lib/TLibCommon - BSD
@@ -93,6 +93,7 @@ build() {
   -DENABLE_PIC=ON \
   -DENABLE_SCC_EXT=ON \
   -DENABLE_SHARED=ON \
+  -DENABLE_TESTS=ON \
   -DGIT_ARCHETYPE="1" \
 %ifarch x86_64
   -DENABLE_LIBVMAF=ON \
@@ -123,11 +124,9 @@ popd
 %endif
 
 # 8 bit + dynamicHDR CLI
-# TestBench dlopens the appropriate x265 library
 mkdir 8bit; pushd 8bit
   build \
-    -DENABLE_CLI=ON \
-    -DENABLE_TESTS=ON
+    -DENABLE_CLI=ON
 popd
 
 %install
@@ -145,9 +144,7 @@ find %{buildroot} -name "*.a" -delete
 %check
 for i in 8 10 12; do
   if [ -d ${i}bit ]; then
-    pushd ${i}bit
-      test/TestBench || :
-    popd
+    ${i}bit/%{__cmake_builddir}/test/TestBench --nobench
   fi
 done
 
@@ -172,6 +169,9 @@ done
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Mon Oct 05 2026 Simone Caronni <negativo17@gmail.com> - 1:4.2-2
+- Fix check section and run tests for all bit depths.
+
 * Fri May 22 2026 Simone Caronni <negativo17@gmail.com> - 1:4.2-1
 - Update to 4.2.
 - Update HandBrake patches.

@@ -21,6 +21,8 @@ Patch3:     %{name}-gcc15.patch
 # contrib/x265/A06-Update-version-strings.patch
 # contrib/x265/A08-Fix-inconsistent-bitrate-in-second-pass.patch
 Patch4:     %{name}-HandBrake.patch
+# Build with libvmaf 2.x
+Patch5:     %{name}-libvmaf-2.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -165,6 +167,7 @@ done
 %changelog
 * Mon Oct 05 2026 Simone Caronni <negativo17@gmail.com> - 1:4.1-1
 - Import 4.1 from EL10 branch.
+- Fix build with libvmaf 2.3.
 
 * Mon Nov 03 2025 Simone Caronni <negativo17@gmail.com> - 1:3.6-11
 - Fix build on i686.

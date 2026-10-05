@@ -83,6 +83,7 @@ build() {
   -DENABLE_HDR10_PLUS=YES \
   -DENABLE_PIC=ON \
   -DENABLE_SHARED=ON \
+  -DENABLE_TESTS=ON \
   -DGIT_ARCHETYPE="1" \
 %ifarch x86_64
   -DENABLE_SVT_HEVC=ON \
@@ -110,11 +111,9 @@ popd
 %endif
 
 # 8 bit + dynamicHDR CLI
-# TestBench dlopens the appropriate x265 library
 mkdir 8bit; pushd 8bit
   build \
-    -DENABLE_CLI=ON \
-    -DENABLE_TESTS=ON \
+    -DENABLE_CLI=ON
 popd
 
 %install
@@ -132,9 +131,7 @@ find %{buildroot} -name "*.a" -delete
 %check
 for i in 8 10 12; do
   if [ -d ${i}bit ]; then
-    pushd ${i}bit
-      test/TestBench || :
-    popd
+    ${i}bit/%{__cmake_builddir}/test/TestBench --nobench
   fi
 done
 
@@ -163,6 +160,7 @@ done
 - Fix build on i686.
 - Add check section
 - Clean up SPEC file.
+- Fix check section and run tests for all bit depths.
 
 * Fri Apr 12 2024 Simone Caronni <negativo17@gmail.com> - 1:3.6-9
 - Update to 3.6 final.

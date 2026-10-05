@@ -131,7 +131,7 @@ find %{buildroot} -name "*.a" -delete
 %check
 for i in 8 10 12; do
   if [ -d ${i}bit ]; then
-    ${i}bit/%{__cmake_builddir}/test/TestBench --nobench
+    ${i}bit/%{__cmake_builddir}/test/TestBench
   fi
 done
 

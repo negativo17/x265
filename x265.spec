@@ -142,11 +142,14 @@ done
 find %{buildroot} -name "*.a" -delete
 
 %check
+# TestBench requires assembly, which is disabled on i686
+%ifnarch %{ix86}
 for i in 8 10 12; do
   if [ -d ${i}bit ]; then
     ${i}bit/%{__cmake_builddir}/test/TestBench --nobench
   fi
 done
+%endif
 
 %files
 %{_bindir}/%{name}

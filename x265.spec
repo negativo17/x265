@@ -25,6 +25,8 @@ Patch3:     %{name}-gcc15.patch
 # contrib/x265/A06-Update-version-strings.patch
 # contrib/x265/A08-Fix-inconsistent-bitrate-in-second-pass.patch
 Patch4:     %{name}-HandBrake.patch
+# vmaf-models installs the models in /usr/share/model
+Patch5:     %{name}-vmaf-model-path.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -45,6 +47,9 @@ This package contains the command line encoder.
 
 %package libs
 Summary:    H.265/HEVC encoder library
+%ifarch x86_64
+Suggests:   vmaf-models
+%endif
 
 %description libs
 The primary objective of x265 is to become the best H.265/HEVC encoder
@@ -174,6 +179,7 @@ done
 %changelog
 * Mon Oct 05 2026 Simone Caronni <negativo17@gmail.com> - 1:4.3-2
 - Fix check section and run tests for all bit depths.
+- Look for VMAF models in /usr/share/model and suggest vmaf-models.
 
 * Fri Sep 11 2026 Simone Caronni <negativo17@gmail.com> - 1:4.3-1
 - Update to 4.3.

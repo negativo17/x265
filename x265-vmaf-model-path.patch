@@ -1,0 +1,12 @@
+diff -Naur x265_4.1.old/source/x265.h x265_4.1/source/x265.h
+--- x265_4.1.old/source/x265.h	2026-10-05 18:20:18.671184089 +0200
++++ x265_4.1/source/x265.h	2026-10-05 18:20:18.672086500 +0200
+@@ -808,7 +808,7 @@
+     int subsample;
+ }x265_vmaf_commondata;
+ 
+-static const x265_vmaf_commondata vcd[] = { { NULL, (char *)"/usr/local/share/model/vmaf_v0.6.1.json", NULL, NULL, 0, 0, 0, 0, 0, 0, 0, NULL, 0, 1} };
++static const x265_vmaf_commondata vcd[] = { { NULL, (char *)"/usr/share/model/vmaf_v0.6.1.json", NULL, NULL, 0, 0, 0, 0, 0, 0, 0, NULL, 0, 1} };
+ 
+ typedef struct x265_temporal_layer {
+     int poc_offset;      /* POC offset */

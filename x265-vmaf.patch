@@ -1,7 +1,7 @@
-diff -Naur multicoreware-x265_git-8ee01d45b05c.old/source/CMakeLists.txt multicoreware-x265_git-8ee01d45b05c/source/CMakeLists.txt
---- multicoreware-x265_git-8ee01d45b05c.old/source/CMakeLists.txt	2023-09-30 09:16:35.921751270 +0200
-+++ multicoreware-x265_git-8ee01d45b05c/source/CMakeLists.txt	2023-09-30 09:31:48.681228545 +0200
-@@ -130,6 +130,7 @@
+diff -Naur x265_4.1.old/source/CMakeLists.txt x265_4.1/source/CMakeLists.txt
+--- x265_4.1.old/source/CMakeLists.txt	2025-09-09 17:29:45.281794463 +0200
++++ x265_4.1/source/CMakeLists.txt	2025-09-09 17:29:45.283224848 +0200
+@@ -151,6 +151,7 @@
      option(ENABLE_LIBVMAF "Enable VMAF" OFF)
      if(ENABLE_LIBVMAF)
          add_definitions(-DENABLE_LIBVMAF)
@@ -9,7 +9,7 @@ diff -Naur multicoreware-x265_git-8ee01d45b05c.old/source/CMakeLists.txt multico
      endif()
  endif(UNIX)
  
-@@ -723,10 +724,13 @@
+@@ -890,10 +891,13 @@
      if(EXTRA_LIB)
          target_link_libraries(x265-shared ${EXTRA_LIB})
      endif()

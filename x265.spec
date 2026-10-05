@@ -1,9 +1,9 @@
-%global api_version 209
+%global api_version 215
 
 Summary:    H.265/HEVC encoder
 Name:       x265
-Version:    3.6
-Release:    11%{?dist}
+Version:    4.1
+Release:    1%{?dist}
 Epoch:      1
 URL:        http://x265.org/
 # source/Lib/TLibCommon - BSD
@@ -12,22 +12,21 @@ URL:        http://x265.org/
 License:    GPLv2+ and BSD
 
 Source0:    https://bitbucket.org/multicoreware/%{name}_git/downloads/%{name}_%{version}.tar.gz
-Patch0:     %{name}-detect_cpu_armhfp.patch
-Patch1:     %{name}-high-bit-depth-soname.patch
-Patch2:     %{name}-svt-hevc.patch
-Patch3:     %{name}-vmaf.patch
-Patch4:     %{name}-fix-aarch64-build.patch
-# https://github.com/HandBrake/HandBrake/blob/master/contrib/x265/A03-sei-length-crash-fix.patch
-Patch5:     %{name}-sei-length-crash-fix.patch
-# https://github.com/HandBrake/HandBrake/blob/master/contrib/x265/A04-ambient-viewing-enviroment-sei.patch
-Patch6:     %{name}-ambient-viewing-enviroment-sei.patch
+Patch0:     %{name}-high-bit-depth-soname.patch
+Patch1:     %{name}-vmaf.patch
+Patch2:     %{name}-fix-aarch64-build.patch
+Patch3:     %{name}-gcc15.patch
+# https://github.com/HandBrake/HandBrake/tree/8902805364f00e0d420c4d4b33053a31d27045ab
+# Except:
+# contrib/x265/A06-Update-version-strings.patch
+# contrib/x265/A08-Fix-inconsistent-bitrate-in-second-pass.patch
+Patch4:     %{name}-HandBrake.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
 BuildRequires:  nasm >= 2.13
 BuildRequires:  numactl-devel
 %ifarch x86_64
-BuildRequires:  svt-hevc-devel
 BuildRequires:  libvmaf-devel
 %endif
 
@@ -80,16 +79,17 @@ sed -i -e 's|libdir=${exec_prefix}/@LIB_INSTALL_DIR@|libdir=@LIB_INSTALL_DIR@|g'
 build() {
 %cmake -G "Unix Makefiles" \
   -DCMAKE_POSITION_INDEPENDENT_CODE=ON \
-  -DCMAKE_SKIP_RPATH=YES \
+  -DCMAKE_SKIP_RPATH=ON \
+  -DENABLE_ALPHA=ON \
   -DENABLE_ASSEMBLY=ON \
-  -DENABLE_HDR10_PLUS=YES \
+  -DENABLE_HDR10_PLUS=ON \
+  -DENABLE_MULTIVIEW=ON \
   -DENABLE_PIC=ON \
+  -DENABLE_SCC_EXT=ON \
   -DENABLE_SHARED=ON \
   -DGIT_ARCHETYPE="1" \
 %ifarch x86_64
   -DENABLE_LIBVMAF=ON \
-  -DENABLE_SVT_HEVC=ON \
-  -DSVT_HEVC_INCLUDE_DIR=%{_includedir}/svt-hevc \
   -DVMAF_INCLUDE_DIR=%{_includedir}/libvmaf \
 %endif
   $* \
@@ -163,6 +163,9 @@ done
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Mon Oct 05 2026 Simone Caronni <negativo17@gmail.com> - 1:4.1-1
+- Import 4.1 from EL10 branch.
+
 * Mon Nov 03 2025 Simone Caronni <negativo17@gmail.com> - 1:3.6-11
 - Fix build on i686.
 - Add check section
